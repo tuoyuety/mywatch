@@ -1,0 +1,12 @@
+my_watch\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/list.c
+my_watch\list.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdlib.h
+my_watch\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+my_watch\list.o: D:\keil5\ARM\ARMCC\Bin\..\include\stddef.h
+my_watch\list.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
+my_watch\list.o: ../Core/Inc/FreeRTOSConfig.h
+my_watch\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+my_watch\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+my_watch\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+my_watch\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+my_watch\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+my_watch\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
