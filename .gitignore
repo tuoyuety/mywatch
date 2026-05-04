@@ -145,13 +145,9 @@ dkms.conf
 **/~$*.doc
 **/*.bin
 **/~$*.xlsx
-
-!Encryption.exe
-!GTxx-Bootloader.hex
-!乐畅-通用式合并&加密工具.bat
-!.gitignore
-
-
+**/*.uvprojx
+*.uvoptx
+**/*.uvguix.26509
 
 doc/~*.xlsx
 doc/~$协议文档.doc
