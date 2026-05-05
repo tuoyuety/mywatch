@@ -24,14 +24,18 @@ void ui_AboutPage_screen_init(void)
     lv_obj_t * ui_OSTextLabel;
     lv_obj_t * ui_GUILabel;
     lv_obj_t * ui_GUITextLabel;
-    lv_obj_t * ui_AuthorHLabel;
-    lv_obj_t * ui_AuthorHTextLabel;
     lv_obj_t * ui_AuthorSLabel;
     lv_obj_t * ui_AuthorSTextLabel;
 		lv_obj_t * ui_AuthorGLabel;
     lv_obj_t * ui_AuthorGTextLabel;
 
     ui_AboutPage = lv_obj_create(NULL);
+    /* 内容总高度大于屏高时若不滚动，底部几行会被父对象裁掉 */
+    lv_obj_set_size(ui_AboutPage, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
+    lv_obj_add_flag(ui_AboutPage, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_scroll_dir(ui_AboutPage, LV_DIR_VER);
+    lv_obj_set_scrollbar_mode(ui_AboutPage, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_style_pad_bottom(ui_AboutPage, 28, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_NameLabel = lv_label_create(ui_AboutPage);
     lv_obj_set_width(ui_NameLabel, LV_SIZE_CONTENT);   /// 1
@@ -48,11 +52,10 @@ void ui_AboutPage_screen_init(void)
     lv_obj_set_height(ui_NameTextLabel, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_NameTextLabel, 25);
     lv_obj_set_y(ui_NameTextLabel, 40);
-    lv_label_set_text(ui_NameTextLabel, THESIS_PRODUCT_NAME);
-    /* montserrat 不含汉字；产品名含中文须用工程里的思源/粗圆字库 */
+    lv_label_set_text(ui_NameTextLabel, THESIS_WATCH_MODEL);
     lv_obj_set_width(ui_NameTextLabel, 210);
     lv_label_set_long_mode(ui_NameTextLabel, LV_LABEL_LONG_WRAP);
-    lv_obj_set_style_text_font(ui_NameTextLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_NameTextLabel, &ui_font_thesis_about20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_VersionLabel = lv_label_create(ui_AboutPage);
     lv_obj_set_width(ui_VersionLabel, LV_SIZE_CONTENT);   /// 1
@@ -128,31 +131,11 @@ void ui_AboutPage_screen_init(void)
     lv_label_set_text(ui_GUITextLabel, "LVGL");
     lv_obj_set_style_text_font(ui_GUITextLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_AuthorHLabel = lv_label_create(ui_AboutPage);
-    lv_obj_set_width(ui_AuthorHLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_AuthorHLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_AuthorHLabel, 20);
-    lv_obj_set_y(ui_AuthorHLabel, 265);
-    lv_label_set_text(ui_AuthorHLabel, "\xe7\xa1\xac\xe4\xbb\xb6\xe5\xbc\x80\xe5\x8f\x91\xe8\x80\x85");
-    lv_obj_set_style_text_color(ui_AuthorHLabel, lv_color_hex(0x1980E1), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_AuthorHLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_AuthorHLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_AuthorHTextLabel = lv_label_create(ui_AboutPage);
-    lv_obj_set_width(ui_AuthorHTextLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_AuthorHTextLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_AuthorHTextLabel, 25);
-    lv_obj_set_y(ui_AuthorHTextLabel, 290);
-    lv_label_set_text(ui_AuthorHTextLabel, THESIS_CREDIT_HW);
-    lv_obj_set_width(ui_AuthorHTextLabel, 210);
-    lv_label_set_long_mode(ui_AuthorHTextLabel, LV_LABEL_LONG_WRAP);
-    lv_obj_set_style_text_font(ui_AuthorHTextLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
     ui_AuthorSLabel = lv_label_create(ui_AboutPage);
     lv_obj_set_width(ui_AuthorSLabel, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_AuthorSLabel, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_AuthorSLabel, 20);
-    lv_obj_set_y(ui_AuthorSLabel, 315);
+    lv_obj_set_y(ui_AuthorSLabel, 265);
     lv_label_set_text(ui_AuthorSLabel, "\xe8\xbd\xaf\xe4\xbb\xb6\xe5\xbc\x80\xe5\x8f\x91\xe8\x80\x85");
     lv_obj_set_style_text_color(ui_AuthorSLabel, lv_color_hex(0x1980E1), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_AuthorSLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -162,17 +145,17 @@ void ui_AboutPage_screen_init(void)
     lv_obj_set_width(ui_AuthorSTextLabel, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_AuthorSTextLabel, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_AuthorSTextLabel, 25);
-    lv_obj_set_y(ui_AuthorSTextLabel, 340);
+    lv_obj_set_y(ui_AuthorSTextLabel, 290);
     lv_label_set_text(ui_AuthorSTextLabel, THESIS_CREDIT_SW);
     lv_obj_set_width(ui_AuthorSTextLabel, 210);
     lv_label_set_long_mode(ui_AuthorSTextLabel, LV_LABEL_LONG_WRAP);
-    lv_obj_set_style_text_font(ui_AuthorSTextLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_AuthorSTextLabel, &ui_font_thesis_about20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 		ui_AuthorGLabel = lv_label_create(ui_AboutPage);
     lv_obj_set_width(ui_AuthorGLabel, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_AuthorGLabel, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_AuthorGLabel, 20);
-    lv_obj_set_y(ui_AuthorGLabel, 365);
+    lv_obj_set_y(ui_AuthorGLabel, 315);
     lv_label_set_text(ui_AuthorGLabel, "\xe7\x95\x8c\xe9\x9d\xa2\xe8\xae\xbe\xe8\xae\xa1\xe8\x80\x85");
     lv_obj_set_style_text_color(ui_AuthorGLabel, lv_color_hex(0x1980E1), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_AuthorGLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -182,11 +165,11 @@ void ui_AboutPage_screen_init(void)
     lv_obj_set_width(ui_AuthorGTextLabel, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_AuthorGTextLabel, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_AuthorGTextLabel, 25);
-    lv_obj_set_y(ui_AuthorGTextLabel, 390);
+    lv_obj_set_y(ui_AuthorGTextLabel, 340);
     lv_label_set_text(ui_AuthorGTextLabel, THESIS_CREDIT_UI);
     lv_obj_set_width(ui_AuthorGTextLabel, 210);
     lv_label_set_long_mode(ui_AuthorGTextLabel, LV_LABEL_LONG_WRAP);
-    lv_obj_set_style_text_font(ui_AuthorGTextLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_AuthorGTextLabel, &ui_font_thesis_about20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 }
 

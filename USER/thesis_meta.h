@@ -19,19 +19,21 @@
 #define THESIS_PROJECT_TAGLINE \
   "\xe4\xbd\x8e\xe5\x8a\x9f\xe8\x80\x97\xe6\x99\xba\xe8\x83\xbd\xe6\x89\x8b\xe8\xa1\xa8\xe7\x9a\x84\xe8\xae\xbe\xe8\xae\xa1\xe4\xb8\x8e\xe5\xae\x9e\xe7\x8e\xb0"
 
-/* 长沙学院毕设·智能腕表（中间点为 U+00B7，UTF-8 C2 B7） */
+/* 长沙学院毕设·智能腕表（中间点为 U+00B7，UTF-8 C2 B7）；论文/其它文案仍可用 */
 #define THESIS_PRODUCT_NAME \
   "\xe9\x95\xbf\xe6\xb2\x99\xe5\xad\xa6\xe9\x99\xa2\xe6\xaf\x95\xe8\xae\xbe\xc2\xb7\xe6\x99\xba\xe8\x83\xbd\xe8\x85\x95\xe8\xa1\xa8"
 
-/* OV-Watch 硬件参考 */
-#define THESIS_CREDIT_HW \
-  "OV-Watch \xe7\xa1\xac\xe4\xbb\xb6\xe5\x8f\x82\xe8\x80\x83"
+/* 关于页「手表型号」一行 */
+#define THESIS_WATCH_MODEL \
+  "\xe6\xaf\x95\xe4\xb8\x9a\xe8\xae\xbe\xe8\xae\xa1"
 
-/* 关于页「软件/界面」一行展示：姓名 + 学号（相邻字符串字面量由编译器自动拼接） */
+/* 关于页「软件开发者 / 界面设计者」：字形在 ui_font_thesis_about20 */
+
+/* 需要「姓名 + 学号」拼接时可用（例如其它界面） */
 #define THESIS_AUTHOR_AND_ID \
   THESIS_AUTHOR_NAME "  " THESIS_AUTHOR_STUDENT_ID
 
-#define THESIS_CREDIT_SW          THESIS_AUTHOR_AND_ID
-#define THESIS_CREDIT_UI          THESIS_AUTHOR_AND_ID
+#define THESIS_CREDIT_SW          THESIS_AUTHOR_NAME
+#define THESIS_CREDIT_UI          THESIS_AUTHOR_NAME
 
 #endif /* THESIS_META_H */

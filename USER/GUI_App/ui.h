@@ -16,6 +16,7 @@ extern "C" {
 
 LV_FONT_DECLARE(ui_font_Cuyuan18);
 LV_FONT_DECLARE(ui_font_Cuyuan20);
+LV_FONT_DECLARE(ui_font_thesis_about20);
 LV_FONT_DECLARE(ui_font_Cuyuan24);
 LV_FONT_DECLARE(ui_font_Cuyuan30);
 LV_FONT_DECLARE(ui_font_Cuyuan38);

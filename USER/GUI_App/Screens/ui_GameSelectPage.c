@@ -11,7 +11,6 @@ Page_t Page_GameSelect = {ui_GameSelectPage_screen_init, ui_GameSelectPage_scree
 lv_obj_t * ui_GameSelectPage;
 lv_obj_t * ui_Game2048Panel;
 lv_obj_t * ui_GameMemPanel;
-lv_obj_t * ui_GameBallPanel;
 
 void ui_event_GameSelectPage(lv_event_t * e)
 {
@@ -46,7 +45,6 @@ void ui_event_GameMemPanel(lv_event_t * e)
         Page_Load(&Page_GameMem);
     }
 }
-
 
 ///////////////////// SCREEN init ////////////////////
 void ui_GameSelectPage_screen_init(void)
@@ -132,48 +130,6 @@ void ui_GameSelectPage_screen_init(void)
     lv_obj_set_align(ui_GameMemLabel, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_GameMemLabel, "\xe8\xae\xb0\xe5\xbf\x86\xe6\x96\xb9\xe5\x9d\x97");
     lv_obj_set_style_text_font(ui_GameMemLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    //ball
-    ui_GameBallPanel = lv_obj_create(ui_GameSelectPage);
-    lv_obj_set_width(ui_GameBallPanel, 240);
-    lv_obj_set_height(ui_GameBallPanel, 70);
-    lv_obj_set_x(ui_GameBallPanel, 0);
-    lv_obj_set_y(ui_GameBallPanel, 140);
-    lv_obj_set_align(ui_GameBallPanel, LV_ALIGN_TOP_MID);
-    lv_obj_clear_flag(ui_GameBallPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_GameBallPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_GameBallPanel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_GameBallPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(ui_GameBallPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_GameBallPanel, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_set_style_bg_opa(ui_GameBallPanel, 100, LV_PART_MAIN | LV_STATE_PRESSED);
-
-    lv_obj_t * ui_GameBallButton = lv_btn_create(ui_GameBallPanel);
-    lv_obj_set_width(ui_GameBallButton, 40);
-    lv_obj_set_height(ui_GameBallButton, 40);
-    lv_obj_set_align(ui_GameBallButton, LV_ALIGN_LEFT_MID);
-    lv_obj_add_flag(ui_GameBallButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
-    lv_obj_clear_flag(ui_GameBallButton, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_GameBallButton, 40, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_GameBallButton, lv_color_hex(0xFF8080), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_GameBallButton, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    lv_obj_t * ui_GameBallicon = lv_label_create(ui_GameBallButton);
-    lv_obj_set_width(ui_GameBallicon, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_GameBallicon, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_GameBallicon, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_GameBallicon, "\xee\x99\x93");
-    lv_obj_set_style_text_font(ui_GameBallicon, &ui_font_iconfont28, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    lv_obj_t * ui_GameBallLabel = lv_label_create(ui_GameBallPanel);
-    lv_obj_set_width(ui_GameBallLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_GameBallLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_GameBallLabel, 60);
-    lv_obj_set_y(ui_GameBallLabel, 0);
-    lv_obj_set_align(ui_GameBallLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_GameBallLabel, "\xe5\x8f\x8d\x20\xe5\xbc\xb9\x20\xe7\x90\x83");
-    lv_obj_set_style_text_font(ui_GameBallLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
 
 		lv_obj_add_event_cb(ui_GameSelectPage, ui_event_GameSelectPage, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_Game2048Panel, ui_event_Game2048Panel, LV_EVENT_ALL, NULL);

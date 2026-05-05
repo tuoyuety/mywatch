@@ -20,6 +20,7 @@ extern lv_obj_t * ui_StepiconLabel;
 extern lv_obj_t * ui_StepCnLabel;
 extern lv_obj_t * ui_StepNumLabel;
 extern lv_obj_t * ui_StepNumBar;
+extern lv_obj_t * ui_StepTapPanel;
 extern lv_obj_t * ui_TempArc;
 extern lv_obj_t * ui_TempiconLabel;
 extern lv_obj_t * ui_TempNumLabel;

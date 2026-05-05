@@ -5,10 +5,12 @@
 
 uint8_t strput(StrStack_t * st,char strin)
 {
-    if(st->Top_Point == 15 - 1)
+    /* strque[N] holds at most N-1 chars plus trailing '\0' for strlen() */
+    if(st->Top_Point >= (uint8_t)(sizeof(st->strque) - 1u))
     {return 0xFFu;}
 
     st->strque[st->Top_Point++] = strin;
+    st->strque[st->Top_Point] = '\0';
     return 0;
 }
 
@@ -17,7 +19,7 @@ uint8_t strdel(StrStack_t * st)
     if(st->Top_Point == 0)
     {return 0xFFu;}
 
-    st->strque[--st->Top_Point] = NULL;
+    st->strque[--st->Top_Point] = '\0';
     return 0;
 }
 
@@ -50,7 +52,8 @@ uint8_t NumStackDel(NumStack_t * st)
 {
     if(st->Top_Point == 0)
 	{return 0xFFu;}
-    st->data[st->Top_Point--] = 0;
+    --st->Top_Point;
+    st->data[st->Top_Point] = 0;
 	return 0;
 }
 
@@ -83,7 +86,8 @@ uint8_t SymStackDel(SymStack_t * st)
 {
   if(st->Top_Point == 0)
 	{return 0xFFu;}
-    st->data[st->Top_Point--] = 0;
+    --st->Top_Point;
+    st->data[st->Top_Point] = 0;
 	return 0;
 }
 

@@ -10,8 +10,7 @@ extern "C" {
 #define CALENDAR_PAGE_EN		1
 #define COMPUTER_PAGE_EN		1
 #define TIMER_PAGE_EN			1
-#define CARD_PAGE_EN            1
-#define SPROTS_PAGE_EN			0
+#define SPORT_PAGE_EN			1
 #define HR_PAGE_EN				1
 #define O2_PAGE_EN				1
 #define ENVIRONMENT_PAGE_EN	    1
@@ -35,16 +34,6 @@ extern lv_obj_t * ui_MenuTimPanel;
 extern lv_obj_t * ui_MenuTimButton;
 extern lv_obj_t * ui_MenuTimicon;
 extern lv_obj_t * ui_MenuTimLabel;
-
-extern lv_obj_t * ui_MenuCardPanel;
-extern lv_obj_t * ui_MenuCardButton;
-extern lv_obj_t * ui_MenuCardicon;
-extern lv_obj_t * ui_MenuCardLabel;
-
-extern lv_obj_t * ui_MenuSprPanel;
-extern lv_obj_t * ui_MenuSprButton;
-extern lv_obj_t * ui_MenuSpricon;
-extern lv_obj_t * ui_MenuSprLabel;
 
 extern lv_obj_t * ui_MenuHRPanel;
 extern lv_obj_t * ui_MenuHRButton;

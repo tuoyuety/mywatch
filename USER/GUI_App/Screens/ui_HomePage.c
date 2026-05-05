@@ -2,6 +2,7 @@
 #include "ui_helpers.h"
 #include "ui_HomePage.h"
 #include "ui_MenuPage.h"
+#include "ui_SportPage.h"
 #include "ui_HRPage.h"
 #include "ui_SetPage.h"
 #include "HWDataAccess.h"
@@ -20,6 +21,7 @@ lv_obj_t * ui_StepiconLabel;
 lv_obj_t * ui_StepCnLabel;
 lv_obj_t * ui_StepNumLabel;
 lv_obj_t * ui_StepNumBar;
+lv_obj_t * ui_StepTapPanel = NULL;
 lv_obj_t * ui_TempArc;
 lv_obj_t * ui_TempiconLabel;
 lv_obj_t * ui_TempNumLabel;
@@ -158,6 +160,16 @@ static void HomePage_timer_cb(lv_timer_t * timer)
 
 
 ///////////////////// FUNCTIONS ////////////////////
+void ui_event_StepTapPanel(lv_event_t * e)
+{
+    if(lv_event_get_code(e) != LV_EVENT_CLICKED) {
+        return;
+    }
+#if SPORT_PAGE_EN
+    Page_Load(&Page_Sport);
+#endif
+}
+
 void ui_event_HomePage(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -409,6 +421,17 @@ void ui_HomePage_screen_init(void)
 
     lv_obj_set_style_bg_color(ui_StepNumBar, lv_color_hex(0x3278FF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_StepNumBar, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+
+#if SPORT_PAGE_EN
+    ui_StepTapPanel = lv_obj_create(ui_HomePage);
+    lv_obj_set_size(ui_StepTapPanel, 220, 100);
+    lv_obj_align(ui_StepTapPanel, LV_ALIGN_CENTER, 0, 8);
+    lv_obj_set_style_bg_opa(ui_StepTapPanel, LV_OPA_TRANSP, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui_StepTapPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_add_flag(ui_StepTapPanel, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(ui_StepTapPanel, ui_event_StepTapPanel, LV_EVENT_CLICKED, NULL);
+    lv_obj_move_foreground(ui_StepTapPanel);
+#endif
 
     ui_TempArc = lv_arc_create(ui_HomePage);
     lv_obj_set_width(ui_TempArc, 50);

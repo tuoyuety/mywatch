@@ -28,10 +28,6 @@ lv_obj_t * ui_WristButton;
 lv_obj_t * ui_Wristicon;
 lv_obj_t * ui_WristLabel;
 lv_obj_t * ui_WristSwitch;
-lv_obj_t * ui_PasswordPanel;
-lv_obj_t * ui_PasswordButton;
-lv_obj_t * ui_Passwordicon;
-lv_obj_t * ui_PasswordLabel;
 
 ///////////////////// ANIMATIONS ////////////////////
 
@@ -110,17 +106,6 @@ void ui_event_DateTimeSetPanel(lv_event_t * e)
         Page_Load(&Page_DateTimeSet);
     }
 }
-
-void ui_event_PasswordPanel(lv_event_t * e)
-{
-	lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED)
-    {
-
-    }
-}
-
 
 ///////////////////// SCREEN init ////////////////////
 void ui_SetPage_screen_init(void)
@@ -291,53 +276,12 @@ void ui_SetPage_screen_init(void)
 		if(HWInterface.IMU.wrist_is_enabled)
 		{lv_obj_add_state(ui_WristSwitch, LV_STATE_CHECKED);}
 
-    ui_PasswordPanel = lv_obj_create(ui_SetPage);
-    lv_obj_set_width(ui_PasswordPanel, 240);
-    lv_obj_set_height(ui_PasswordPanel, 70);
-    lv_obj_set_x(ui_PasswordPanel, 0);
-    lv_obj_set_y(ui_PasswordPanel, 280);
-    lv_obj_set_align(ui_PasswordPanel, LV_ALIGN_TOP_MID);
-    lv_obj_clear_flag(ui_PasswordPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_PasswordPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_PasswordPanel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PasswordPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(ui_PasswordPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_PasswordPanel, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_set_style_bg_opa(ui_PasswordPanel, 100, LV_PART_MAIN | LV_STATE_PRESSED);
-
-    ui_PasswordButton = lv_btn_create(ui_PasswordPanel);
-    lv_obj_set_width(ui_PasswordButton, 40);
-    lv_obj_set_height(ui_PasswordButton, 40);
-    lv_obj_set_align(ui_PasswordButton, LV_ALIGN_LEFT_MID);
-    lv_obj_add_flag(ui_PasswordButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
-    lv_obj_clear_flag(ui_PasswordButton, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_PasswordButton, 40, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_PasswordButton, lv_color_hex(0xE18019), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PasswordButton, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_Passwordicon = lv_label_create(ui_PasswordButton);
-    lv_obj_set_width(ui_Passwordicon, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_Passwordicon, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_Passwordicon, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Passwordicon, "\xee\x99\x9c");
-    lv_obj_set_style_text_font(ui_Passwordicon, &ui_font_iconfont34, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_PasswordLabel = lv_label_create(ui_PasswordPanel);
-    lv_obj_set_width(ui_PasswordLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PasswordLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_PasswordLabel, 60);
-    lv_obj_set_y(ui_PasswordLabel, 0);
-    lv_obj_set_align(ui_PasswordLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_PasswordLabel, "\xe5\xaf\x86\xe7\xa0\x81\xe8\xae\xbe\xe7\xbd\xae");
-    lv_obj_set_style_text_font(ui_PasswordLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
     //events
 		lv_obj_add_event_cb(ui_SetPage, ui_event_SetPage, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_LightTimePanel, ui_event_LightTimePanel, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_TurnOffTimePanel, ui_event_TOffTimePanel, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_WristSwitch, ui_event_WristSwitch, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_DateTimeSetPanel, ui_event_DateTimeSetPanel, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_PasswordPanel, ui_event_PasswordPanel, LV_EVENT_ALL, NULL);
 
 }
 

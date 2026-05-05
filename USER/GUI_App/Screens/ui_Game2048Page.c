@@ -69,44 +69,100 @@ lv_obj_t * ui_Game2048Page;
 lv_obj_t * ui_Game2048BtnM;
 lv_obj_t * ui_Game2048ScLabel;
 
+/* 手势阈值高时易漏判；增加按下/抬起位移判定作为补充 */
+static lv_point_t g2048_press;
+static uint8_t g2048_press_valid;
+static uint8_t g2048_skip_release;
+
+static void game_2048_apply_dir(lv_dir_t dir)
+{
+    if(dir != LV_DIR_LEFT && dir != LV_DIR_RIGHT && dir != LV_DIR_TOP && dir != LV_DIR_BOTTOM) {
+        return;
+    }
+    Game_2048.game_over = game_over(Game_2048.matrix);
+    if(Game_2048.game_over) {
+        return;
+    }
+    uint8_t moved = 0;
+    if(dir == LV_DIR_LEFT) {
+        moved = move_left(&Game_2048.score, Game_2048.matrix);
+    }
+    else if(dir == LV_DIR_RIGHT) {
+        moved = move_right(&Game_2048.score, Game_2048.matrix);
+    }
+    else if(dir == LV_DIR_TOP) {
+        moved = move_up(&Game_2048.score, Game_2048.matrix);
+    }
+    else if(dir == LV_DIR_BOTTOM) {
+        moved = move_down(&Game_2048.score, Game_2048.matrix);
+    }
+    if(moved) {
+        addRandom(Game_2048.matrix);
+        update_btnm_map(Game_2048.btnm_map, Game_2048.matrix);
+        lv_btnmatrix_set_map(ui_Game2048BtnM, Game_2048.btnm_map);
+        char strbuf[16];
+        lv_snprintf(strbuf, sizeof(strbuf), "Score:%d", (int)Game_2048.score);
+        lv_label_set_text(ui_Game2048ScLabel, strbuf);
+    }
+}
+
 ///////////////////// FUNCTIONS ////////////////////
 static void ui_event_Game2048Page(lv_event_t * e)
 {
-   lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
+    lv_event_code_t event_code = lv_event_get_code(e);
 
-    if(event_code == LV_EVENT_GESTURE)
-    {
-				Game_2048.game_over = game_over(Game_2048.matrix);
-        if(!Game_2048.game_over)
-        {
-					uint8_t moved = 0;
-					if(lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_LEFT)
-					{
-							moved = move_left(&Game_2048.score,Game_2048.matrix);
-					}
-					else if(lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_RIGHT)
-					{
-							moved = move_right(&Game_2048.score,Game_2048.matrix);
-					}
-					else if(lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_TOP)
-					{
-							moved = move_up(&Game_2048.score,Game_2048.matrix);
-					}
-					else if(lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM)
-					{
-							moved = move_down(&Game_2048.score,Game_2048.matrix);
-					}
-					if(moved)
-					{
-							addRandom(Game_2048.matrix);
-							update_btnm_map(Game_2048.btnm_map, Game_2048.matrix);
-							lv_btnmatrix_set_map(ui_Game2048BtnM, Game_2048.btnm_map);
-							char strbuf[10];
-							sprintf(strbuf, "Score:%d",Game_2048.score);
-							lv_label_set_text(ui_Game2048ScLabel,strbuf);
-					}
-				}
+    if(event_code == LV_EVENT_GESTURE) {
+        g2048_skip_release = 1;
+        game_2048_apply_dir(lv_indev_get_gesture_dir(lv_indev_get_act()));
+        return;
+    }
+
+    if(event_code == LV_EVENT_PRESSED) {
+        lv_indev_t * indev = lv_indev_get_act();
+        if(indev != NULL) {
+            lv_indev_get_point(indev, &g2048_press);
+            g2048_press_valid = 1;
+        }
+        return;
+    }
+
+    if(event_code == LV_EVENT_PRESS_LOST) {
+        g2048_press_valid = 0;
+        g2048_skip_release = 0;
+        return;
+    }
+
+    if(event_code == LV_EVENT_RELEASED) {
+        if(g2048_skip_release) {
+            g2048_skip_release = 0;
+            g2048_press_valid = 0;
+            return;
+        }
+        if(!g2048_press_valid) {
+            return;
+        }
+        lv_indev_t * indev = lv_indev_get_act();
+        if(indev == NULL) {
+            g2048_press_valid = 0;
+            return;
+        }
+        lv_point_t rel;
+        lv_indev_get_point(indev, &rel);
+        g2048_press_valid = 0;
+
+        lv_coord_t dx = rel.x - g2048_press.x;
+        lv_coord_t dy = rel.y - g2048_press.y;
+        /* 略低于 LVGL 内置手势距离，方便小屏短滑 */
+        if(LV_ABS(dx) < 14 && LV_ABS(dy) < 14) {
+            return;
+        }
+
+        if(LV_ABS(dx) > LV_ABS(dy)) {
+            game_2048_apply_dir((dx > 0) ? LV_DIR_RIGHT : LV_DIR_LEFT);
+        }
+        else {
+            game_2048_apply_dir((dy > 0) ? LV_DIR_BOTTOM : LV_DIR_TOP);
+        }
     }
 }
 
@@ -145,12 +201,13 @@ static void ui_event_Game2048BtnM(lv_event_t * e)
 static void ui_event_new_game_btn(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
-    if(code == LV_EVENT_LONG_PRESSED)
+    /* 原先仅 LONG_PRESSED，短按无反应，用户以为按键坏了 */
+    if(code == LV_EVENT_CLICKED || code == LV_EVENT_LONG_PRESSED)
     {
-			Game_2048_init();
-      char strbuf[10];
-      sprintf(strbuf, "Score:%d",Game_2048.score);
-      lv_label_set_text(ui_Game2048ScLabel,strbuf);
+        Game_2048_init();
+        char strbuf[16];
+        lv_snprintf(strbuf, sizeof(strbuf), "Score:%d", (int)Game_2048.score);
+        lv_label_set_text(ui_Game2048ScLabel, strbuf);
     }
 }
 
@@ -162,6 +219,7 @@ void ui_Game2048Page_screen_init(void)
     ui_Game2048Page = lv_obj_create(NULL);
 
     lv_obj_clear_flag(ui_Game2048Page,LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(ui_Game2048Page, LV_OBJ_FLAG_CLICKABLE);
     ui_Game2048BtnM = lv_btnmatrix_create(ui_Game2048Page);
     Game_2048_init();
 

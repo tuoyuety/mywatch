@@ -23,10 +23,6 @@ extern lv_obj_t * ui_WristButton;
 extern lv_obj_t * ui_Wristicon;
 extern lv_obj_t * ui_WristLabel;
 extern lv_obj_t * ui_WristSwitch;
-extern lv_obj_t * ui_PasswordPanel;
-extern lv_obj_t * ui_PasswordButton;
-extern lv_obj_t * ui_Passwordicon;
-extern lv_obj_t * ui_PasswordLabel;
 
 extern Page_t Page_Set;
 
