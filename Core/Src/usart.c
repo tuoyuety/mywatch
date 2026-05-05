@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
+#include <stdio.h>
 
 /* USER CODE BEGIN 0 */
 
@@ -158,5 +159,11 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
-
+/* printf 重定向到 USART1，避免使用 semihosting（否则调试易卡在 BKPT/_sys_open） */
+int fputc(int ch, FILE *f)
+{
+  (void)f;
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+  return ch;
+}
 /* USER CODE END 1 */

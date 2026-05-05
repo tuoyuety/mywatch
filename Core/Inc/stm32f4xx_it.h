@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2026 STMicroelectronics.
+  * Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -42,7 +42,10 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+extern char HardInt_receive_str[25];
+extern uint8_t HardInt_uart_flag;
+extern uint8_t HardInt_mpu_flag;
+extern uint8_t HardInt_Charg_flag;
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -59,7 +62,10 @@ void DMA2_Stream2_IRQHandler(void);
 void DMA2_Stream5_IRQHandler(void);
 void DMA2_Stream7_IRQHandler(void);
 /* USER CODE BEGIN EFP */
-
+void EXTI2_IRQHandler(void);
+void EXTI4_IRQHandler(void);
+void EXTI9_5_IRQHandler(void);
+void EXTI15_10_IRQHandler(void);
 /* USER CODE END EFP */
 
 #ifdef __cplusplus

@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2026 STMicroelectronics.
+  * Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -22,6 +22,8 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "key.h"
+#include "power.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,6 +65,10 @@ extern UART_HandleTypeDef huart1;
 extern TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN EV */
+char HardInt_receive_str[25];
+uint8_t HardInt_uart_flag=0;
+uint8_t HardInt_mpu_flag=0;
+uint8_t HardInt_Charg_flag=0;
 
 /* USER CODE END EV */
 
@@ -78,7 +84,7 @@ void NMI_Handler(void)
 
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
-   while (1)
+  while (1)
   {
   }
   /* USER CODE END NonMaskableInt_IRQn 1 */
@@ -170,7 +176,6 @@ void DebugMon_Handler(void)
 void RTC_WKUP_IRQHandler(void)
 {
   /* USER CODE BEGIN RTC_WKUP_IRQn 0 */
-
   /* USER CODE END RTC_WKUP_IRQn 0 */
   HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);
   /* USER CODE BEGIN RTC_WKUP_IRQn 1 */
@@ -184,7 +189,19 @@ void RTC_WKUP_IRQHandler(void)
 void TIM1_UP_TIM10_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 0 */
-
+  static uint16_t key1_long_press;
+  if(!KEY1)
+  {
+    key1_long_press += 1;
+    if(key1_long_press >= 3000)
+    {
+      Power_DisEnable();
+    }
+  }
+  else
+  {
+    key1_long_press = 0;
+  }
   /* USER CODE END TIM1_UP_TIM10_IRQn 0 */
   HAL_TIM_IRQHandler(&htim1);
   /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 1 */
@@ -198,7 +215,13 @@ void TIM1_UP_TIM10_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+  if(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE)!=RESET)
+  {
+    HardInt_uart_flag = 1;
+    __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);
+    HAL_UART_DMAStop(&huart1);
+    HAL_UART_Receive_DMA(&huart1, (uint8_t *)HardInt_receive_str, 25);
+  }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
@@ -249,5 +272,45 @@ void DMA2_Stream7_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+
+void EXTI2_IRQHandler(void)
+{
+
+  HardInt_Charg_flag = 1;
+
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
+
+}
+
+/**
+  * @brief This function handles EXTI line4 interrupt.Key2 interrupt
+  */
+void EXTI4_IRQHandler(void)
+{
+
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
+  
+}
+
+
+/**
+  * @brief This function handles EXTI line[9:5] interrupts.Key1 interrupt
+  */
+void EXTI9_5_IRQHandler(void)
+{
+  
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
+
+}
+
+/**
+  * @brief This function handles EXTI line[15:10] interrupts.MPU Interrupt
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  HardInt_mpu_flag = 1;
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_12);
+
+}
 
 /* USER CODE END 1 */

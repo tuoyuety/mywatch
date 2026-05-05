@@ -38,3 +38,5 @@ my_watch\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 my_watch\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 my_watch\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 my_watch\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
+my_watch\stm32f4xx_it.o: ..\USER\drivers\KEY\key.h
+my_watch\stm32f4xx_it.o: ..\USER\drivers\POWER\power.h
