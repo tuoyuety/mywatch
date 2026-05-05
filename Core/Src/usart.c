@@ -159,7 +159,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
-/* printf 重定向到 USART1，避免使用 semihosting（否则调试易卡在 BKPT/_sys_open） */
+/*
+ * printf 走串口 1：毕设答辩现场接 USB 转串口就能看日志，比半主机调试靠谱得多。
+ * 提醒：别在 UART 硬件还没 MX_USART1_UART_Init 之前乱 printf，会踩未初始化外设。
+ */
 int fputc(int ch, FILE *f)
 {
   (void)f;

@@ -5,33 +5,22 @@
 extern "C" {
 #endif
 
+#include "thesis_meta.h"
 
-/***************************
- * CURRENT VERSION OF OV-Watch
- ***************************/
-/**
- * total mechanical structure change will show in major
- * hardware change will show in minor
- * software change will show in patch
- *
+/*
+ * 版本号怎么读（毕设里写进论文也说得过去）：
+ * - MAJOR：大改版，比如换 MCU、换屏驱、任务架构重写；
+ * - MINOR：加功能模块、改外设驱动接口；
+ * - PATCH：修 bug、调参、改文案，不动整体结构。
  */
-#define VERSION_MAJOR 2
-#define VERSION_MINOR 4
-#define VERSION_PATCH 4
-#define VERSION_INFO ""
+#define VERSION_MAJOR 1
+#define VERSION_MINOR 0
+#define VERSION_PATCH 0
+#define VERSION_INFO  "thesis-build"
 
-/**
- * No-Chicken的意思是no spring chicken any more...
- * 
- */
-#define VERSION_AUTHOR_ENG_NAME    "No-Chicken"
-#define VERSION_AUTHOR_CN_NAME     "不吃油炸鸡"
-#define VERSION_PROJECT_LINK       "https://github.com/No-Chicken/OV-Watch"
-
-
-/**
- * Wrapper functions for VERSION macros
- */
+#define VERSION_AUTHOR_ENG_NAME    "Thesis-Author"
+#define VERSION_AUTHOR_CN_NAME     THESIS_AUTHOR_NAME
+#define VERSION_PROJECT_LINK       "https://example.com/thesis-placeholder"
 
 static inline int watch_version_major(void)
 {
@@ -54,7 +43,7 @@ static inline const char *watch_version_info(void)
 }
 
 #ifdef __cplusplus
-} /*extern "C"*/
+}
 #endif
 
 #endif

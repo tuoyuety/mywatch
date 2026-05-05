@@ -71,26 +71,21 @@ void vApplicationTickHook(void);
 /* USER CODE BEGIN 2 */
 void vApplicationIdleHook( void )
 {
-   /* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
-   to 1 in FreeRTOSConfig.h. It will be called on each iteration of the idle
-   task. It is essential that code added to this hook function never attempts
-   to block in any way (for example, call xQueueReceive() with a block time
-   specified, or call vTaskDelay()). If the application makes use of the
-   vTaskDelete() API function (as this demo application does) then it is also
-   important that vApplicationIdleHook() is permitted to return to its calling
-   function, because it is the responsibility of the idle task to clean up
-   memory allocated by the kernel to any task that has since been deleted. */
+   /*
+    * 空闲任务钩子：每轮 idle 都会进来「瞄一眼」。
+    * 规矩很简单——别阻塞、别 delay，否则低优先级任务 cleanup 可能被拖死。
+    * 毕设答辩时一句话：这里预留给功耗统计、看门狗喂狗策略扩展，当前保持空实现。
+    */
 }
 /* USER CODE END 2 */
 
 /* USER CODE BEGIN 3 */
 void vApplicationTickHook( void )
 {
-   /* This function will be called by each tick interrupt if
-   configUSE_TICK_HOOK is set to 1 in FreeRTOSConfig.h. User code can be
-   added here, but the tick hook is called from an interrupt context, so
-   code must not attempt to block, and only the interrupt safe FreeRTOS API
-   functions can be used (those that end in FromISR()). */
+   /*
+    * 1 ms 节拍钩子（跑在 SysTick 中断上下文）：给 LVGL 喂 lv_tick_inc。
+    * 注意：这里只能调用「FromISR 安全」的那套 API，别手滑写 osDelay。
+    */
 	TaskTickHook();
 }
 /* USER CODE END 3 */
@@ -102,6 +97,7 @@ void vApplicationTickHook( void )
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
+  /* 业务线程、队列、软件定时器一次性建好；真正跑起来要等 osKernelStart() */
 	User_Tasks_Init();
   /* USER CODE END Init */
 
@@ -145,7 +141,7 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-  /* Infinite loop */
+  /* 板载 LED 慢闪 =「调度器还活着」；调 FreeRTOS 卡死时先看它动不动 */
   for(;;)
   {
 		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);

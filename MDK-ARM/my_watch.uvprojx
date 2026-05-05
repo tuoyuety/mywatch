@@ -1623,6 +1623,11 @@
               <FilePath>..\USER\Tasks\user_HardwareInitTask.c</FilePath>
             </File>
             <File>
+              <FileName>thesis_boot_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Tasks\thesis_boot_lcd.c</FilePath>
+            </File>
+            <File>
               <FileName>user_KeyTask.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Tasks\user_KeyTask.c</FilePath>

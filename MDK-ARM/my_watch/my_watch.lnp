@@ -109,6 +109,7 @@
 "my_watch\user_chargchecktask.o"
 "my_watch\user_datasavetask.o"
 "my_watch\user_hardwareinittask.o"
+"my_watch\thesis_boot_lcd.o"
 "my_watch\user_keytask.o"
 "my_watch\user_messagesendtask.o"
 "my_watch\user_runmodetasks.o"

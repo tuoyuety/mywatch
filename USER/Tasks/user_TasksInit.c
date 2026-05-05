@@ -1,5 +1,12 @@
+/**
+ * @file user_TasksInit.c
+ * @brief FreeRTOS 侧「搭台子」：队列、定时器、线程属性表都在这儿集中登记。
+ *
+ * 可以这么理解：CubeMX 生成的 freertos.c 只负责把 OS 拉起来；
+ * 真正和你毕设业务相关的线程优先级、栈大小，全在本文件一目了然，写论文画线程表也方便。
+ */
+
 /* Private includes -----------------------------------------------------------*/
-//includes
 #include "user_TasksInit.h"
 //sys
 #include "sys.h"
@@ -152,22 +159,15 @@ void LvHandlerTask(void *argument);
 void WDOGFeedTask(void *argument);
 
 /**
-  * @brief  FreeRTOS initialization
-  * @param  None
-  * @retval None
+  * @brief 创建消息队列、软件定时器与各业务线程（调度器启动前调用一次即可）
   */
 void User_Tasks_Init(void)
 {
-  /* add mutexes, ... */
-
-  /* add semaphores, ... */
-
-  /* start timers, add new ones, ... */
-
+  /* 100 ms 周期的 idle 相关定时器：配合熄屏/唤醒策略，具体逻辑在回调里展开 */
 	IdleTimerHandle = osTimerNew(IdleTimerCallback, osTimerPeriodic, NULL, NULL);
-	osTimerStart(IdleTimerHandle,100);//100ms
+	osTimerStart(IdleTimerHandle,100);
 
-  /* add queues, ... */
+  /* 队列一律短小精悍：单字节事件通知，避免大块数据在 ISR 和任务间乱传 */
 	Key_MessageQueue  = osMessageQueueNew(1, 1, NULL);
 	Idle_MessageQueue = osMessageQueueNew(1, 1, NULL);
 	Stop_MessageQueue = osMessageQueueNew(1, 1, NULL);
@@ -175,7 +175,7 @@ void User_Tasks_Init(void)
 	HomeUpdata_MessageQueue = osMessageQueueNew(1, 1, NULL);
 	DataSave_MessageQueue = osMessageQueueNew(2, 1, NULL);
 
-	/* add threads, ... */
+	/* 线程优先级：初始化任务最高，喂狗次之，LVGL 与传感器刷新偏低，避免抢占重活 */
   HardwareInitTaskHandle  = osThreadNew(HardwareInitTask, NULL, &HardwareInitTask_attributes);
   LvHandlerTaskHandle  = osThreadNew(LvHandlerTask, NULL, &LvHandlerTask_attributes);
   WDOGFeedTaskHandle   = osThreadNew(WDOGFeedTask, NULL, &WDOGFeedTask_attributes);
@@ -190,10 +190,7 @@ void User_Tasks_Init(void)
 	MPUCheckTaskHandle		= osThreadNew(MPUCheckTask, NULL, &MPUCheckTask_attributes);
 	DataSaveTaskHandle		= osThreadNew(DataSaveTask, NULL, &DataSaveTask_attributes);
 
-  /* add events, ... */
-
-
-	/* add  others ... */
+	/* 上电先踢一脚首页刷新队列，避免桌面卡在第一帧 */
 	uint8_t HomeUpdataStr;
 	osMessageQueuePut(HomeUpdata_MessageQueue, &HomeUpdataStr, 0, 1);
 
@@ -201,15 +198,12 @@ void User_Tasks_Init(void)
 
 
 /**
-  * @brief  FreeRTOS Tick Hook, to increase the LVGL tick
-  * @param  None
-  * @retval None
+  * @brief 系统节拍钩子：给 LVGL 喂时间，并顺带维护秒表页的软时钟。
+  * @note 跑在 tick 中断里，别写阻塞逻辑；往队列里塞消息时 timeout 必须是 0。
   */
 void TaskTickHook(void)
 {
-	//to increase the LVGL tick
 	lv_tick_inc(1);
-	//to increase the timerpage's timer(put in here is to ensure the Real Time)
 	if(ui_TimerPageFlag)
 	{
 			ui_TimerPage_ms+=1;
@@ -240,9 +234,7 @@ void TaskTickHook(void)
 
 
 /**
-  * @brief  LVGL Handler task, to run the lvgl
-  * @param  argument: Not used
-  * @retval None
+  * @brief LVGL 专用线程：周期性 lv_task_handler，顺便根据「多久没摸屏」打断 idle 计时。
   */
 void LvHandlerTask(void *argument)
 {
@@ -251,7 +243,6 @@ void LvHandlerTask(void *argument)
   {
 		if(lv_disp_get_inactive_time(NULL)<1000)
 		{
-			//Idle time break, set to 0
 			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 0);
 		}
 		lv_task_handler();
@@ -261,13 +252,10 @@ void LvHandlerTask(void *argument)
 
 
 /**
-  * @brief  Watch Dog Feed task
-  * @param  argument: Not used
-  * @retval None
+  * @brief 外部看门狗喂狗任务：板子上若挂了专用 WDI 芯片，这里周期性翻转电平。
   */
 void WDOGFeedTask(void *argument)
 {
-	//owdg
 	WDOG_Port_Init();
   while(1)
   {

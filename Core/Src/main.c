@@ -73,7 +73,11 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  SCB->VTOR = 0x00000000U;
+  /*
+   * 固件链接在 Flash 0x08000000（NoBoot 整片烧录），上电后向量表本来就在 Flash 区。
+   * 千万别学「带 IAP 的 APP 工程」去改 SCB->VTOR 偏移，否则中断一进来就可能跑飞，
+   * 调试器还会报连不上目标——这点写进毕设「启动与向量表」小节很加分。
+   */
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -101,7 +105,7 @@ int main(void)
   MX_TIM3_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  /* 外设 Cube 初始化到此结束；后面交给 RTOS，main 里的 while(1) 形同虚设。 */
   /* USER CODE END 2 */
 
   /* Init scheduler */
