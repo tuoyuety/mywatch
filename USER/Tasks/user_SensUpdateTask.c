@@ -28,7 +28,7 @@
 uint32_t user_HR_timecount=0;
 
 /* Private function prototypes -----------------------------------------------*/
-// 这是EM7028官方lib的库函数, 没有lib用不了
+/* 血氧库接口我未链接，先占位 */
 extern uint8_t GET_BP_MAX (void);
 extern uint8_t GET_BP_MIN (void);
 extern void Blood_Process (void);
@@ -92,7 +92,6 @@ void HRDataUpdateTask(void *argument)
 			//receive the sensor wakeup message, sensor wakeup
 			if(!HWInterface.HR_meter.ConnectionError)
 			{
-				//Hr messure
 				vTaskSuspendAll();
 				hr_temp = HR_Calculate(EM7028_Get_HRS1(),user_HR_timecount);
 				xTaskResumeAll();
@@ -157,7 +156,7 @@ void SensorDataUpdateTask(void *argument)
 		}
 
 
-		// SPO2 Page
+		/* 血氧界面：数我还没接真算法 */
 		if(Page_Get_NowPage()->page_obj == &ui_SPO2Page)
 		{
 			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);

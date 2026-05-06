@@ -7,12 +7,7 @@ extern "C" {
 
 #include "thesis_meta.h"
 
-/*
- * 版本号怎么读（毕设里写进论文也说得过去）：
- * - MAJOR：大改版，比如换 MCU、换屏驱、任务架构重写；
- * - MINOR：加功能模块、改外设驱动接口；
- * - PATCH：修 bug、调参、改文案，不动整体结构。
- */
+/* 我：主版本 / 次版本 / 小修补 */
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 0
 #define VERSION_PATCH 0

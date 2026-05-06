@@ -1,7 +1,7 @@
 #include "ui.h"
 #include "ui_helpers.h"
 #include "ui_AboutPage.h"
-#include "version.h" /* 内含 thesis_meta：产品名、署名别硬编码散落各处 */
+#include "version.h" /* 姓名等在 thesis_meta */
 ///////////////////// VARIABLES ////////////////////
 lv_obj_t * ui_AboutPage;
 

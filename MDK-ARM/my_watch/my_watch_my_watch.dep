@@ -2494,7 +2494,7 @@ I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/freetype/lv_freetype.h)(0x69E399F
 I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/rlottie/lv_rlottie.h)(0x69E399FD)
 I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.h)(0x69E399FD)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_MenuPage.h)(0x69F9EF1B)
 F (..\USER\Func\pubsub.c)(0x69F96674)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\pubsub.o --omf_browse my_watch\pubsub.crf --depend my_watch\pubsub.d)
 I (..\USER\Func\pubsub.h)(0x693EF06C)
@@ -2634,7 +2634,7 @@ I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.h)(0x69E399FD)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_MenuPage.h)(0x69F9EF1B)
 I (..\USER\GUI_App\ui_helpers.h)(0x693EF06C)
 F (..\USER\GUI_App\ui_helpers.c)(0x69F97BAF)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\ui_helpers.o --omf_browse my_watch\ui_helpers.crf --depend my_watch\ui_helpers.d)
@@ -5363,7 +5363,7 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
 I (..\USER\GUI_App\Screens\ui_ChargPage.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\Func\HWDataAccess.h)(0x69F96FD2)
 I (../Core/Inc/rtc.h)(0x69F97A46)
 I (../Core/Inc/main.h)(0x69F97A47)
@@ -5853,7 +5853,7 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
 I (..\USER\GUI_App\ui_helpers.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_SetPage.h)(0x69F9DE3D)
 I (..\USER\GUI_App\Screens\ui_DateTimeSetPage.h)(0x69F969A3)
 I (..\USER\Func\HWDataAccess.h)(0x69F96FD2)
@@ -6763,7 +6763,7 @@ I (..\USER\drivers\AHT21\AHT21.h)(0x693EF06C)
 I (..\USER\drivers\SPL06_001\SPL06_001.h)(0x69F97B87)
 I (..\USER\drivers\LSM303DLH\LSM303.h)(0x693EF06C)
 I (..\USER\drivers\EM7028\em70x8.h)(0x693EF06C)
-F (..\USER\GUI_App\Screens\ui_HomePage.c)(0x69F9EF43)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\ui_homepage.o --omf_browse my_watch\ui_homepage.crf --depend my_watch\ui_homepage.d)
+F (..\USER\GUI_App\Screens\ui_HomePage.c)(0x69F9F3A7)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\ui_homepage.o --omf_browse my_watch\ui_homepage.crf --depend my_watch\ui_homepage.d)
 I (..\USER\GUI_App\ui.h)(0x69F9DB61)
 I (..\Middlewares\LVGL\GUI\lvgl/lvgl.h)(0x69E399FC)
 I (..\Middlewares\LVGL\GUI\lvgl/src/misc/lv_log.h)(0x69E399FE)
@@ -6891,7 +6891,7 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
 I (..\USER\GUI_App\ui_helpers.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_MenuPage.h)(0x69F9EF1B)
 I (..\USER\GUI_App\Screens\ui_SportPage.h)(0x69F9EEEF)
 I (..\USER\GUI_App\Screens\ui_HRPage.h)(0x69F968B7)
@@ -7255,7 +7255,7 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
 I (..\USER\GUI_App\ui_helpers.h)(0x693EF06C)
-F (..\USER\GUI_App\Screens\ui_MenuPage.c)(0x69F9EF2C)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\ui_menupage.o --omf_browse my_watch\ui_menupage.crf --depend my_watch\ui_menupage.d)
+F (..\USER\GUI_App\Screens\ui_MenuPage.c)(0x69F9F2A2)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\ui_menupage.o --omf_browse my_watch\ui_menupage.crf --depend my_watch\ui_menupage.d)
 I (..\USER\GUI_App\ui.h)(0x69F9DB61)
 I (..\Middlewares\LVGL\GUI\lvgl/lvgl.h)(0x69E399FC)
 I (..\Middlewares\LVGL\GUI\lvgl/src/misc/lv_log.h)(0x69E399FE)
@@ -7383,7 +7383,7 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
 I (..\USER\GUI_App\ui_helpers.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_MenuPage.h)(0x69F9EF1B)
 I (..\USER\GUI_App\Screens\ui_Megboxes.h)(0x69F97BCC)
 I (..\USER\GUI_App\Screens\ui_CalendarPage.h)(0x693EF06C)
@@ -7525,7 +7525,7 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
 I (..\USER\GUI_App\ui_helpers.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_SetPage.h)(0x69F9DE3D)
 I (..\USER\GUI_App\Screens\ui_OffTimePage.h)(0x693EF06C)
 F (..\USER\GUI_App\Screens\ui_SetPage.c)(0x69F9DE3C)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\ui_setpage.o --omf_browse my_watch\ui_setpage.crf --depend my_watch\ui_setpage.d)
@@ -7656,7 +7656,7 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
 I (..\USER\GUI_App\ui_helpers.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_MenuPage.h)(0x69F9EF1B)
 I (..\USER\GUI_App\Screens\ui_SetPage.h)(0x69F9DE3D)
 I (..\USER\GUI_App\Screens\ui_OffTimePage.h)(0x693EF06C)
@@ -8200,7 +8200,7 @@ I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/rlottie/lv_rlottie.h)(0x69E399FD)
 I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.h)(0x69E399FD)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Tasks\user_RunModeTasks.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_ChargPage.h)(0x693EF06C)
 I (../Core/Inc/main.h)(0x69F97A47)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69E78D0D)
@@ -8395,7 +8395,7 @@ I (..\USER\GUI_App\ui.h)(0x69F9DB61)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (../Core/Inc/main.h)(0x69F97A47)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69E78D0D)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x69E78D14)
@@ -8708,7 +8708,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x69E78C
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x69E78CDD)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x69E78CDD)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x69E78CDD)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\ui.h)(0x69F9DB61)
 I (..\Middlewares\LVGL\GUI\lvgl/lvgl.h)(0x69E399FC)
 I (..\Middlewares\LVGL\GUI\lvgl/src/misc/lv_log.h)(0x69E399FE)
@@ -9049,7 +9049,7 @@ I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
 I (..\USER\GUI_App\Screens\ui_EnvPage.h)(0x693EF06C)
 I (..\USER\GUI_App\Screens\ui_HRPage.h)(0x69F968B7)
 I (..\USER\GUI_App\Screens\ui_SPO2Page.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_DateTimeSetPage.h)(0x69F969A3)
 I (..\USER\Func\HWDataAccess.h)(0x69F96FD2)
 I (..\USER\drivers\KT6328\KT6328.h)(0x693EF06C)
@@ -9207,7 +9207,7 @@ I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.h)(0x69E399FD)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Func\PageManager.h)(0x693EF06C)
 I (..\USER\drivers\AHT21\../../GUI_App/ui.h)(0x69F9DB61)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_OffTimePage.h)(0x693EF06C)
 I (../Core/Inc/main.h)(0x69F97A47)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69E78D0D)
@@ -9439,12 +9439,12 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h)(0x69E78D0E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x69E78D0E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x69E78D0E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x69E78D0E)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_MenuPage.h)(0x69F9EF1B)
 I (..\USER\drivers\EM7028\em70x8.h)(0x693EF06C)
 I (..\USER\drivers\IIC\iic_hal.h)(0x693EF06C)
 I (..\USER\drivers\LSM303DLH\LSM303.h)(0x693EF06C)
-F (..\USER\Tasks\user_SensUpdateTask.c)(0x69F97BDD)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\user_sensupdatetask.o --omf_browse my_watch\user_sensupdatetask.crf --depend my_watch\user_sensupdatetask.d)
+F (..\USER\Tasks\user_SensUpdateTask.c)(0x69F9F3AD)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\USER -I ..\USER\GUI_App -I ..\USER\drivers\AHT21 -I ..\USER\drivers\BL24C02 -I ..\USER\drivers\EM7028 -I ..\USER\drivers\IIC -I ..\USER\drivers\KEY -I ..\USER\drivers\KT6328 -I ..\USER\drivers\LCD -I ..\USER\drivers\LSM303DLH -I ..\USER\drivers\MPU6050 -I ..\USER\drivers\MPU6050\eMPL -I ..\USER\drivers\OWDG -I ..\USER\drivers\POWER -I ..\USER\drivers\SPL06_001 -I ..\USER\drivers\TOUCH -I ..\USER\Tasks -I ..\USER\GUI_App\Screens -I ..\USER\Func -I ..\USER\SYSTEM -I ..\Middlewares\LVGL\GUI -I ..\Middlewares\LVGL\GUI\lvgl -I ..\Middlewares\LVGL\GUI\lvgl\src -I ..\Middlewares\LVGL\GUI\porting --diag_suppress=188 --diag_suppress=68 --diag_suppress=111 --diag_suppress=546 --diag_suppress=177 --diag_suppress=1035-I.\RTE\_my_watch-ID:\keil5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o my_watch\user_sensupdatetask.o --omf_browse my_watch\user_sensupdatetask.crf --depend my_watch\user_sensupdatetask.d)
 I (..\USER\Tasks\user_TasksInit.h)(0x693EF06C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x69E78CDD)
 I (D:\keil5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -9584,7 +9584,7 @@ I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/rlottie/lv_rlottie.h)(0x69E399FD)
 I (..\Middlewares\LVGL\GUI\lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.h)(0x69E399FD)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 I (..\USER\Tasks\user_SensUpdateTask.h)(0x693EF06C)
-I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9EF39)
+I (..\USER\GUI_App\Screens\ui_HomePage.h)(0x69F9F0C6)
 I (..\USER\GUI_App\Screens\ui_MenuPage.h)(0x69F9EF1B)
 I (..\USER\GUI_App\Screens\ui_SetPage.h)(0x69F9DE3D)
 I (..\USER\GUI_App\Screens\ui_HRPage.h)(0x69F968B7)

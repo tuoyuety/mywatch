@@ -1,7 +1,4 @@
-/* user_HardwareInitTask.c
- * 上电后第一个「干重活」的任务：把外设摸一遍，能用的用起来，用不了的别卡死整机。
- * 顺序大致按「先供电/时钟相关 → 传感器 → 存储 → 人机界面」走，和论文里系统初始化章节一一对应即可。
- */
+/* 我上电后跑一遍硬件初始化，做完就结束这个任务 */
 
 #include "usart.h"
 #include "tim.h"
@@ -30,37 +27,34 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 
-/**
- * @brief 硬件一次性初始化任务（只跑一轮，然后自删）
- * @note  外面包了 vTaskSuspendAll，意思是：这段里别指望别的任务帮你擦屁股，代码自己得是非阻塞的。
- */
+/* 这一段在 vTaskSuspendAll 里，我尽量别阻塞太久 */
 void HardwareInitTask(void *argument)
 {
 	while(1)
 	{
     vTaskSuspendAll();
 
-    /* RTC 周期性唤醒：低功耗场景用得上；这里先配好，后面睡眠策略改起来省事 */
+    /* RTC 唤醒，后面睡眠要用 */
     if(HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 2000, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
     {
       Error_Handler();
     }
 
-    /* 串口 DMA 收包 + IDLE 帧中断：给蓝牙/调试指令留入口 */
+    /* 串口 DMA，蓝牙和调试命令从这里进 */
     HAL_UART_Receive_DMA(&huart1, (uint8_t *)HardInt_receive_str, 25);
     __HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
 
-    /* 背光 PWM：先 Start，亮度具体多少等屏点亮后再 LCD_Set_Light */
+    /* 背光 PWM 先开起来 */
     HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_3);
 
     delay_init();
 
-    /* 电源保持脚拉高：电池方案里常见，不然 MCU 一睡板子就断电 */
+    /* 电源保持 */
     HWInterface.Power.Init();
 
     Key_Port_Init();
 
-    /* 传感器：每类最多试 3 次，失败就标记 ConnectionError，别 while(1) 傻等 */
+    /* 传感器逐个试，失败就记 ConnectionError */
     uint8_t num = 3;
     while(num && HWInterface.AHT21.ConnectionError)
     {
@@ -101,7 +95,7 @@ void HardwareInitTask(void *argument)
       HWInterface.HR_meter.Sleep();
 
 
-    /* EEPROM：存点用户偏好、步数缓存之类；读失败就走默认策略 */
+    /* EEPROM：设置和步数 */
     EEPROM_Init();
     if(!EEPROM_Check())
     {
@@ -133,15 +127,15 @@ void HardwareInitTask(void *argument)
     }
 
 
-    /* 蓝牙模组：只做了 GPIO/关断，具体透传协议可在毕设「通信层」展开写 */
+    /* 蓝牙：我先初始化再关掉省电 */
     HWInterface.BLE.Init();
     HWInterface.BLE.Disable();
 
-    /* 触摸：I2C 软总线 + 复位脚，电容屏能摸之前必须先过这关 */
+    /* 触摸芯片复位 */
     CST816_GPIO_Init();
     CST816_RESET();
 
-    /* 显示链路：GPIO 模拟命令 + SPI 刷像素；背光 PWM 前面已开 */
+    /* 屏和开机动画 */
     LCD_Init();
     LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
     delay_ms(10);
@@ -151,7 +145,7 @@ void HardwareInitTask(void *argument)
     LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
 
 
-    /* LVGL：图形栈初始化完再 ui_init，否则对象树没根 */
+    /* LVGL 再拉界面 */
     lv_init();
     lv_port_disp_init();
     lv_port_indev_init();

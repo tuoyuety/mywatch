@@ -24,6 +24,7 @@ uint8_t Hr_Ave_Filter(uint32_t *HrList, uint8_t lenth)
 	return (uint8_t)ave;
 }
 
+/* 心率算法 */
 uint16_t HR_Calculate(uint16_t present_dat,uint32_t present_time)
 {
 
