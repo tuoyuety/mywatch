@@ -62,6 +62,15 @@ static void ChargPage_timer_cb(lv_timer_t * timer)
 void ui_ChargPage_screen_init(void)
 {
 		char value_strbuf[5];
+    uint8_t bat_init = HWInterface.Power.power_remain;
+    if (bat_init == 0u || bat_init > 100u) {
+      bat_init = HWInterface.Power.BatCalculate();
+      if (bat_init == 0u || bat_init > 100u) {
+        bat_init = 0u;
+      }
+    }
+    ui_BatArcValue = bat_init;
+
     ui_ChargPage = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_ChargPage, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 

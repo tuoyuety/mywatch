@@ -17,6 +17,7 @@
 #include "WDOG.h"
 
 #include "HWDataAccess.h"
+#include "user_ChargCheckTask.h"
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
@@ -49,6 +50,8 @@ void IdleEnterTask(void *argument)
 		{
 			IdleTimerCount = 0;
 			LCD_Set_Light(ui_LightSliderValue);
+			/* 黑屏/暗屏恢复亮屏后，充电检测任务须重新对齐（否则 last_chg 仍为旧值，插着电也不回充电页） */
+			ChargeUi_NotifyResync();
 		}
 		osDelay(10);
 	}
@@ -154,6 +157,7 @@ void StopEnterTask(void *argument)
 			//check if is Charging
 			if(ChargeCheck())
 			{HardInt_Charg_flag = 1;}
+			ChargeUi_NotifyResync();
 			//send the Home Updata message
 			osMessageQueuePut(HomeUpdata_MessageQueue, &HomeUpdataStr, 0, 1);
 

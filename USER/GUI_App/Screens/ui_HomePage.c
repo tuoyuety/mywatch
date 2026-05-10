@@ -59,7 +59,8 @@ uint8_t ui_DateMonthValue = 11;
 uint8_t ui_DateDayValue = 8;
 uint8_t ui_DataWeekdayValue = 2;
 
-uint8_t ui_BatArcValue = 70;
+/* 勿用 70 等占位：与 HWInterface.Power.power_remain 一致，否则开机先假高再被定时器拉低 */
+uint8_t ui_BatArcValue = 0;
 uint16_t ui_StepNumValue = 0;
 uint8_t ui_LightSliderValue = 50;
 
@@ -316,6 +317,12 @@ void ui_HomePage_screen_init(void)
     lv_obj_set_style_text_color(ui_DayLabel, lv_color_hex(0x6B7585), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_DayLabel, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_align(ui_DayLabel, LV_ALIGN_TOP_LEFT, 10, 30);
+
+    /* 与硬件已采样的 power_remain 对齐（HardwareInitTask 在 ui_init 前已写入） */
+    ui_BatArcValue = HWInterface.Power.power_remain;
+    if (ui_BatArcValue > 100u) {
+      ui_BatArcValue = 0u;
+    }
 
     /* 电量：线性图标 + 百分比 */
     ui_BaticonLabel = lv_label_create(ui_HomePage);
