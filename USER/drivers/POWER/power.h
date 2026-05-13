@@ -29,11 +29,11 @@
 #endif
 
 /*
- * 充电时从采样电压里减去的「等效 IR 压降」，用于抵消恒流阶段端电压虚高；过大会把电量算得越来越低。
- * 若仍觉得充电时百分比掉，可改为 0.03f 或 0。
+ * 充电时从采样电压里减去的「等效 IR」：仅当你能准确建模电芯+检流时才需要。
+ * 分压点在板级、与 OV 电压表校准时通常未含此项；非充电显示已准而充电不准时，应保持为 0。
  */
 #ifndef BAT_CHARGE_IR_COMPENSATION_V
-#define BAT_CHARGE_IR_COMPENSATION_V (0.06f)
+#define BAT_CHARGE_IR_COMPENSATION_V (0.0f)
 #endif
 
 #define BAT_CHECK_PORT	GPIOA

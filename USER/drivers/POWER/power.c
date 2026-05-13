@@ -10,6 +10,7 @@ static float s_adc_vdda = 3.3f;
 static float s_batvolt_lpf = -1.0f;
 /* 充电中显示 SOC 单调不减：端电压受负载拉低时避免「越充越少」 */
 static uint8_t s_soc_last_shown = 0xFFu;
+static uint8_t s_was_charging;
 
 static void power_adc_restore_battery_channel(void)
 {
@@ -170,17 +171,32 @@ uint8_t PowerCalculate(void)
 	float raw;
 
 	raw = BatCheck_8times();
-	if (s_batvolt_lpf < 0.0f)
 	{
-		s_batvolt_lpf = raw;
-	}
-	else
-	{
-		s_batvolt_lpf = 0.78f * s_batvolt_lpf + 0.22f * raw;
+		uint8_t chg = ChargeCheck();
+		uint8_t was_chg = s_was_charging;
+		s_was_charging = chg;
+
+		if (s_batvolt_lpf < 0.0f)
+		{
+			s_batvolt_lpf = raw;
+		}
+		else if (chg && !was_chg)
+		{
+			/* 刚插上电：与未充电同一套电压→电量表，先把滤波器拉到当前端压 */
+			s_batvolt_lpf = raw;
+		}
+		else if (chg)
+		{
+			s_batvolt_lpf = 0.88f * s_batvolt_lpf + 0.12f * raw;
+		}
+		else
+		{
+			s_batvolt_lpf = 0.78f * s_batvolt_lpf + 0.22f * raw;
+		}
 	}
 	voltage = s_batvolt_lpf;
 
-	if (ChargeCheck())
+	if (BAT_CHARGE_IR_COMPENSATION_V > 0.0f && ChargeCheck())
 	{
 		voltage -= BAT_CHARGE_IR_COMPENSATION_V;
 	}
