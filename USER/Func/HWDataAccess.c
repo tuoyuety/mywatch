@@ -543,7 +543,6 @@ HW_InterfaceTypeDef HWInterface = {
 	.HR_meter = {
 		.ConnectionError = 1,
 		.HrRate = 0,
-		.SPO2 = 99,
 		.Init = HW_HRmeter_Init,
 		.Sleep = HW_HRmeter_Sleep
 	}

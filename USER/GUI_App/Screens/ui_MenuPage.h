@@ -12,7 +12,6 @@ extern "C" {
 #define TIMER_PAGE_EN			1
 #define SPORT_PAGE_EN			1
 #define HR_PAGE_EN				1
-#define O2_PAGE_EN				1
 #define ENVIRONMENT_PAGE_EN	    1
 #define COMPASS_PAGE_EN			1
 #define GAME_PAGE_EN            1
@@ -39,11 +38,6 @@ extern lv_obj_t * ui_MenuHRPanel;
 extern lv_obj_t * ui_MenuHRButton;
 extern lv_obj_t * ui_MenuHRicon;
 extern lv_obj_t * ui_MenuHRLabel;
-
-extern lv_obj_t * ui_MenuO2Panel;
-extern lv_obj_t * ui_MenuO2Button;
-extern lv_obj_t * ui_MenuO2icon;
-extern lv_obj_t * ui_MenuO2Label;
 
 extern lv_obj_t * ui_MenuEnvPanel;
 extern lv_obj_t * ui_MenuEnvButton;

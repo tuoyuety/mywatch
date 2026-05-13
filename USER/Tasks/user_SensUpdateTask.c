@@ -7,7 +7,6 @@
 #include "ui_MenuPage.h"
 #include "ui_SetPage.h"
 #include "ui_HRPage.h"
-#include "ui_SPO2Page.h"
 #include "ui_ENVPage.h"
 #include "ui_CompassPage.h"
 #include "main.h"
@@ -28,15 +27,6 @@
 uint32_t user_HR_timecount=0;
 
 /* Private function prototypes -----------------------------------------------*/
-/* 血氧库接口我未链接，先占位 */
-extern uint8_t GET_BP_MAX (void);
-extern uint8_t GET_BP_MIN (void);
-extern void Blood_Process (void);
-extern void Blood_50ms_process (void);
-extern void Blood_500ms_process(void);
-extern int em70xx_bpm_dynamic(int RECEIVED_BYTE, int g_sensor_x, int g_sensor_y, int g_sensor_z);
-extern int em70xx_reset(int ref);
-
 
 /**
   * @brief  MPU6050 Check the state
@@ -156,20 +146,7 @@ void SensorDataUpdateTask(void *argument)
 		}
 
 
-		/* 血氧界面：数我还没接真算法 */
-		if(Page_Get_NowPage()->page_obj == &ui_SPO2Page)
-		{
-			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
-			//sensor wake up
-
-			//receive the sensor wakeup message, sensor wakeup
-			if(0)
-			{
-				//SPO2 messure
-			}
-		}
-		// Env Page
-		else if(Page_Get_NowPage()->page_obj == &ui_EnvPage)
+		if(Page_Get_NowPage()->page_obj == &ui_EnvPage)
 		{
 			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
 			//receive the sensor wakeup message, sensor wakeup

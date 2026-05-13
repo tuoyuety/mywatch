@@ -104,7 +104,6 @@
 "my_watch\ui_menupage.o"
 "my_watch\ui_offtimepage.o"
 "my_watch\ui_setpage.o"
-"my_watch\ui_spo2page.o"
 "my_watch\ui_timerpage.o"
 "my_watch\delay.o"
 "my_watch\user_chargchecktask.o"

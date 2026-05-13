@@ -13,7 +13,6 @@
 #include "ui.h"
 #include "ui_EnvPage.h"
 #include "ui_HRPage.h"
-#include "ui_SPO2Page.h"
 #include "ui_HomePage.h"
 #include "ui_DateTimeSetPage.h"
 
@@ -32,7 +31,6 @@ struct
 	int8_t humi;
 	int8_t temp;
 	uint8_t HR;
-	uint8_t SPO2;
 	uint16_t stepNum;
 }BLEMessage;
 
@@ -107,7 +105,6 @@ void MessageSendTask(void *argument)
 				BLEMessage.humi = HWInterface.AHT21.humidity;
 				BLEMessage.temp = HWInterface.AHT21.temperature;
 				BLEMessage.HR = HWInterface.HR_meter.HrRate;
-				BLEMessage.SPO2 = HWInterface.HR_meter.SPO2;
 				BLEMessage.stepNum = HWInterface.IMU.Steps;
 
 				printf("data:%2d-%02d\r\n",BLEMessage.nowdate.Month,BLEMessage.nowdate.Date);
@@ -115,7 +112,6 @@ void MessageSendTask(void *argument)
 				printf("humidity:%d%%\r\n",BLEMessage.humi);
 				printf("temperature:%d\r\n",BLEMessage.temp);
 				printf("Heart Rate:%d%%\r\n",BLEMessage.HR);
-				printf("SPO2:%d%%\r\n",BLEMessage.SPO2);
 				printf("Step today:%d\r\n",BLEMessage.stepNum);
 			}
 			//set time//OV+ST=20230629125555

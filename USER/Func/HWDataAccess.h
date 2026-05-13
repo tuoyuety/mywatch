@@ -235,7 +235,6 @@ typedef struct
 {
   uint8_t ConnectionError;
   uint8_t HrRate;
-  uint8_t SPO2;
   uint8_t (*Init)(void);
   void (*Sleep)(void);
 
