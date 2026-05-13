@@ -82,7 +82,7 @@ void ui_CompassPage_screen_init(void)
     ui_EnvAltitudeIcon = lv_label_create(ui_EnvAltitudeBtn);
     lv_obj_set_align(ui_EnvAltitudeIcon,LV_ALIGN_LEFT_MID);
     lv_obj_set_pos(ui_EnvAltitudeIcon,-10,0);
-    lv_label_set_text(ui_EnvAltitudeIcon, "\xc3\xae\xc2\x9a\xc2\x9b");
+    lv_label_set_text(ui_EnvAltitudeIcon, "\xee\x9a\x9b");
     lv_obj_set_style_text_opa(ui_EnvAltitudeIcon, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_EnvAltitudeIcon, &ui_font_iconfont28, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -105,7 +105,7 @@ void ui_CompassPage_screen_init(void)
     ui_CompassDirIcon = lv_label_create(ui_CompassDirBtn);
     lv_obj_set_align(ui_CompassDirIcon,LV_ALIGN_LEFT_MID);
     lv_obj_set_pos(ui_CompassDirIcon,-10,0);
-    lv_label_set_text(ui_CompassDirIcon, "\xc3\xae\xc2\x9e\xc2\x88");
+    lv_label_set_text(ui_CompassDirIcon, "\xee\x9e\x88");
     lv_obj_set_style_text_opa(ui_CompassDirIcon, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_CompassDirIcon, &ui_font_iconfont28, LV_PART_MAIN | LV_STATE_DEFAULT);
 

@@ -11,6 +11,7 @@ extern lv_obj_t * ui_HomePage;
 extern lv_obj_t * ui_TimeHourLabel;
 extern lv_obj_t * ui_TimeColonLabel;
 extern lv_obj_t * ui_TimeMinuteLabel;
+extern lv_obj_t * ui_BatArc;
 extern lv_obj_t * ui_BaticonLabel;
 extern lv_obj_t * ui_BatNumLabel;
 extern lv_obj_t * ui_DateLabel;
@@ -20,17 +21,18 @@ extern lv_obj_t * ui_StepCnLabel;
 extern lv_obj_t * ui_StepNumLabel;
 extern lv_obj_t * ui_StepNumBar;
 extern lv_obj_t * ui_StepTapPanel;
+extern lv_obj_t * ui_TempArc;
 extern lv_obj_t * ui_TempiconLabel;
 extern lv_obj_t * ui_TempNumLabel;
 extern lv_obj_t * ui_HumiiconLabel;
+extern lv_obj_t * ui_HumiArc;
 extern lv_obj_t * ui_HumiNumLabel;
+extern lv_obj_t * ui_HRArc;
 extern lv_obj_t * ui_HRiconLabel;
 extern lv_obj_t * ui_HRNumLabel;
 
 extern lv_obj_t * ui_DropDownPanel;
 extern lv_obj_t * ui_UpBGPanel;
-extern lv_obj_t * ui_NFCButton;
-extern lv_obj_t * ui_NFCLabel;
 extern lv_obj_t * ui_BLEButton;
 extern lv_obj_t * ui_BLELabel;
 extern lv_obj_t * ui_PowerButton;
@@ -54,8 +56,6 @@ extern uint8_t ui_LightSliderValue;
 
 extern Page_t Page_Home;
 
-void ui_event_HomePage_DropDownPanel(lv_event_t * e);
-void ui_event_NFCButton(lv_event_t * e);
 void ui_event_BLEButton(lv_event_t * e);
 void ui_event_PowerButton(lv_event_t * e);
 void ui_event_SetButton(lv_event_t * e);

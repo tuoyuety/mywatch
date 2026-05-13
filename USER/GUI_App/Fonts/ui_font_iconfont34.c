@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Size: 34 px
  * Bpp: 4
- * Opts: --bpp 4 --size 34 --font D:\projects\SquareLine_Projects\OV_Watch\AllFont\assets\iconfont.ttf -o D:\projects\SquareLine_Projects\OV_Watch\AllFont\assets\ui_font_iconfont34.c --format lvgl -r 0xE65C -r 0xE65A -r 0xE619 -r 0xE633 -r 0xE762 -r 0xE652 -r 0xE706 -r 0xE788 -r 0xE603 -r 0xE986 -r 0xE607 -r 0xE62C -r 0xE600 -r 0xE67A -r 0xE7A0 --no-compress --no-prefilter
+ * Opts: --bpp 4 --size 34 --font tools/watch_iconfont/assets/watch_iconfont_merged.ttf -o USER/GUI_App/Fonts/ui_font_iconfont34.c --format lvgl -r 0xE65C -r 0xE65A -r 0xE619 -r 0xE633 -r 0xE762 -r 0xE652 -r 0xE706 -r 0xE788 -r 0xE603 -r 0xE986 -r 0xE607 -r 0xE62C -r 0xE600 -r 0xE67A -r 0xE7A0 --no-compress --no-prefilter
  ******************************************************************************/
 
 #include "ui.h"

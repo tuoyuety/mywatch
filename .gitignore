@@ -151,3 +151,6 @@ dkms.conf
 
 doc/~*.xlsx
 doc/~$协议文档.doc
+
+tools/watch_iconfont/lv_font_conv_pkg/
+tools/watch_iconfont/MaterialIcons-Regular.ttf

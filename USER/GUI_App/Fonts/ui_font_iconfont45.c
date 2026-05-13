@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Size: 45 px
  * Bpp: 4
- * Opts: --bpp 4 --size 45 --font D:\projects\SquareLine_Projects\OV_Watch\LOffSet_Page\assets\iconfont.ttf -o D:\projects\SquareLine_Projects\OV_Watch\LOffSet_Page\assets\ui_font_iconfont45.c --format lvgl -r 0xE696 -r 0xE62A -r 0xe60e -r 0xED1D --no-compress --no-prefilter
+ * Opts: --bpp 4 --size 45 --font tools/watch_iconfont/assets/watch_iconfont_merged.ttf -o USER/GUI_App/Fonts/ui_font_iconfont45.c --format lvgl -r 0xE696 -r 0xE62A -r 0xe60e -r 0xED1D --no-compress --no-prefilter
  ******************************************************************************/
 
 #include "ui.h"

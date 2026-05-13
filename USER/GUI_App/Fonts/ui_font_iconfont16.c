@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Size: 16 px
  * Bpp: 4
- * Opts: --bpp 4 --size 16 --font D:\projects\SquareLine_Projects\OV_Watch\DateDaySet_Page\assets\iconfont.ttf -o D:\projects\SquareLine_Projects\OV_Watch\DateDaySet_Page\assets\ui_font_iconfont16.c --format lvgl -r 0xe68f --no-compress --no-prefilter
+ * Opts: --bpp 4 --size 16 --font tools/watch_iconfont/assets/watch_iconfont_merged.ttf -o USER/GUI_App/Fonts/ui_font_iconfont16.c --format lvgl -r 0xe68f --no-compress --no-prefilter
  ******************************************************************************/
 
 #include "ui.h"
