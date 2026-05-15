@@ -80,7 +80,7 @@ Page_t Page_Power = {ui_PowerPage_screen_init, ui_PowerPage_screen_deinit, &ui_P
 // need to be destroyed when the page is destroyed
 static void HomePage_timer_cb(lv_timer_t * timer)
 {
-  char value_strbuf[10];
+  char value_strbuf[16];
   if(Page_Get_NowPage()->page_obj  == &ui_HomePage)
 	{
 			/*
@@ -125,15 +125,21 @@ static void HomePage_timer_cb(lv_timer_t * timer)
 				lv_label_set_text(ui_DayLabel, ui_Days[ui_DataWeekdayValue-1]);
 			}
 
-      if(ui_BatArcValue != HWInterface.Power.power_remain)
       {
-        ui_BatArcValue = HWInterface.Power.power_remain;
-        if (ui_BatArcValue > 100u) {
-          ui_BatArcValue = 100u;
+        uint16_t centi = HWInterface.Power.power_remain;
+        if (centi > 10000u) {
+          centi = 10000u;
         }
-        lv_arc_set_value(ui_BatArc, ui_BatArcValue);
-				sprintf(value_strbuf, "%d%%",ui_BatArcValue);
-				lv_label_set_text(ui_BatNumLabel, value_strbuf);
+        uint8_t pct = (uint8_t)((centi + 50U) / 100U);
+        if (pct > 100u) {
+          pct = 100u;
+        }
+        if (ui_BatArcValue != pct) {
+          ui_BatArcValue = pct;
+          lv_arc_set_value(ui_BatArc, (int32_t)ui_BatArcValue);
+          sprintf(value_strbuf, "%u%%", (unsigned)ui_BatArcValue);
+          lv_label_set_text(ui_BatNumLabel, value_strbuf);
+        }
       }
 
       if(ui_StepNumValue != HWInterface.IMU.Steps)
@@ -292,7 +298,7 @@ void ui_event_LightSlider(lv_event_t * e)
 void ui_HomePage_screen_init(void)
 {
 		ui_MenuScrollY = 0;
-    char value_strbuf[10];
+    char value_strbuf[16];
 
     ui_HomePage = lv_obj_create(NULL);
     lv_obj_set_style_bg_color(ui_HomePage, lv_color_hex(0x0F1419), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -332,9 +338,15 @@ void ui_HomePage_screen_init(void)
     lv_obj_set_style_text_color(ui_TimeMinuteLabel, lv_color_hex(0xE8ECF3), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_TimeMinuteLabel, &ui_font_Cuyuan48, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_BatArcValue = HWInterface.Power.power_remain;
-    if (ui_BatArcValue > 100u) {
-      ui_BatArcValue = 0u;
+    {
+      uint16_t centi = HWInterface.Power.power_remain;
+      if (centi > 10000u) {
+        centi = 0u;
+      }
+      ui_BatArcValue = (uint8_t)((centi + 50U) / 100U);
+      if (ui_BatArcValue > 100u) {
+        ui_BatArcValue = 100u;
+      }
     }
 
     ui_BatArc = lv_arc_create(ui_HomePage);
@@ -345,7 +357,7 @@ void ui_HomePage_screen_init(void)
     lv_obj_set_align(ui_BatArc, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_BatArc, LV_OBJ_FLAG_CLICKABLE);
     lv_arc_set_range(ui_BatArc, 0, 100);
-    lv_arc_set_value(ui_BatArc, ui_BatArcValue);
+    lv_arc_set_value(ui_BatArc, (int32_t)ui_BatArcValue);
     lv_obj_set_style_arc_width(ui_BatArc, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_arc_color(ui_BatArc, lv_color_hex(0x19C819), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_arc_opa(ui_BatArc, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
@@ -371,7 +383,7 @@ void ui_HomePage_screen_init(void)
     lv_obj_set_x(ui_BatNumLabel, -75);
     lv_obj_set_y(ui_BatNumLabel, -72);
     lv_obj_set_align(ui_BatNumLabel, LV_ALIGN_CENTER);
-    sprintf(value_strbuf, "%d%%", ui_BatArcValue);
+    sprintf(value_strbuf, "%u%%", (unsigned)ui_BatArcValue);
     lv_label_set_text(ui_BatNumLabel, value_strbuf);
     lv_obj_set_style_text_color(ui_BatNumLabel, lv_color_hex(0xC5D0E0), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_BatNumLabel, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);

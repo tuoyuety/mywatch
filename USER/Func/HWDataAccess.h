@@ -151,11 +151,11 @@ typedef struct
   */
 typedef struct
 {
-    uint8_t power_remain;
+    uint16_t power_remain; /*!< 0~10000：厘百分，即 0.00%~100.00% */
 
     void (*Init)(void);
     void (*Shutdown)(void);
-    uint8_t (*BatCalculate)(void);
+    uint16_t (*BatCalculate)(void);
 } HW_Power_InterfaceTypeDef;
 
 

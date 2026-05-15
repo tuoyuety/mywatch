@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyWatchCompanion" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#006A60</item>
+        <item name="colorPrimaryDark">#004940</item>
+    </style>
+</resources>

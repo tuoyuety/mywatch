@@ -42,6 +42,22 @@ struct
 
 /* Private function prototypes -----------------------------------------------*/
 
+/* DMA 缓冲可能带 \r\n 且无可靠结尾；去尾部换行并保证结尾 0 */
+static void MessagePrepareUartLine(char *s, size_t cap)
+{
+	size_t i;
+
+	if (cap == 0U) {
+		return;
+	}
+	s[cap - 1U] = '\0';
+	for (i = 0U; i < cap - 1U && s[i] != '\0'; i++) {
+	}
+	while (i > 0U && (s[i - 1U] == '\r' || s[i - 1U] == '\n')) {
+		s[--i] = '\0';
+	}
+}
+
 void StrCMD_Get(const char * str, char * cmd)
 {
 	uint8_t i = 0;
@@ -89,6 +105,7 @@ void MessageSendTask(void *argument)
 			HardInt_uart_flag = 0;
 			uint8_t IdleBreakstr = 0;
 			osMessageQueuePut(IdleBreak_MessageQueue,&IdleBreakstr,NULL,1);
+			MessagePrepareUartLine(HardInt_receive_str, sizeof(HardInt_receive_str));
 			printf("RecStr:%s\r\n",HardInt_receive_str);
 			if(!strcmp(HardInt_receive_str,"OV"))
 			{
@@ -100,6 +117,8 @@ void MessageSendTask(void *argument)
 			}
 			else if(!strcmp(HardInt_receive_str,"OV+SEND"))
 			{
+				unsigned batpct;
+
 				HAL_RTC_GetTime(&hrtc,&(BLEMessage.nowtime),RTC_FORMAT_BIN);
 				HAL_RTC_GetDate(&hrtc,&BLEMessage.nowdate,RTC_FORMAT_BIN);
 				BLEMessage.humi = HWInterface.AHT21.humidity;
@@ -107,11 +126,22 @@ void MessageSendTask(void *argument)
 				BLEMessage.HR = HWInterface.HR_meter.HrRate;
 				BLEMessage.stepNum = HWInterface.IMU.Steps;
 
+				batpct = (unsigned)((HWInterface.Power.power_remain + 50U) / 100U);
+				if (batpct > 100U) {
+					batpct = 100U;
+				}
+				/* 手机端可优先解析：电量(整数%%)、湿度、温度、心率、步数 */
+				printf("CSV:%u,%d,%d,%u,%u\r\n",
+				       batpct,
+				       (int)BLEMessage.humi,
+				       (int)BLEMessage.temp,
+				       (unsigned)BLEMessage.HR,
+				       (unsigned)BLEMessage.stepNum);
 				printf("data:%2d-%02d\r\n",BLEMessage.nowdate.Month,BLEMessage.nowdate.Date);
 				printf("time:%02d:%02d:%02d\r\n",BLEMessage.nowtime.Hours,BLEMessage.nowtime.Minutes,BLEMessage.nowtime.Seconds);
 				printf("humidity:%d%%\r\n",BLEMessage.humi);
 				printf("temperature:%d\r\n",BLEMessage.temp);
-				printf("Heart Rate:%d%%\r\n",BLEMessage.HR);
+				printf("Heart Rate:%d\r\n",BLEMessage.HR);
 				printf("Step today:%d\r\n",BLEMessage.stepNum);
 			}
 			//set time//OV+ST=20230629125555

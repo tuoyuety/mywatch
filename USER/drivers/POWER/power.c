@@ -8,8 +8,8 @@
 static float s_adc_vdda = 3.3f;
 /* 电量换算前低通，减轻负载/充电脉冲导致的百分比乱跳 */
 static float s_batvolt_lpf = -1.0f;
-/* 充电中显示 SOC 单调不减：端电压受负载拉低时避免「越充越少」 */
-static uint8_t s_soc_last_shown = 0xFFu;
+/* 充电中显示 SOC 单调不减：端电压受负载拉低时避免「越充越少」；0xFFFF=未初始化 */
+static uint16_t s_soc_last_shown = 0xFFFFu;
 static uint8_t s_was_charging;
 
 static void power_adc_restore_battery_channel(void)
@@ -108,6 +108,34 @@ void Power_Pins_Init()
 
   HAL_NVIC_SetPriority(EXTI2_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+#if POWER_USE_BAT_FULL_PIN
+  /* 充满检测脚：常见为 TP4056 #STDBY 开漏，空闲为高，充满拉低 */
+  GPIO_InitStruct.Pin = BAT_FULL_PIN;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+#if POWER_BAT_FULL_PIN_ACTIVE_LOW
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+#else
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+#endif
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+#if defined(GPIOB)
+  if (BAT_FULL_PORT == GPIOB) {
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOC)
+  if (BAT_FULL_PORT == GPIOC) {
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+  }
+#endif
+#if defined(GPIOD)
+  if (BAT_FULL_PORT == GPIOD) {
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+  }
+#endif
+  HAL_GPIO_Init(BAT_FULL_PORT, &GPIO_InitStruct);
+#endif
 	
 }
 
@@ -128,6 +156,20 @@ uint8_t ChargeCheck(void) /* 1=充电中 */
   return (s == GPIO_PIN_SET) ? 1U : 0U;
 #else
   return (s == GPIO_PIN_RESET) ? 1U : 0U;
+#endif
+}
+
+uint8_t FullChargeCheck(void)
+{
+#if !POWER_USE_BAT_FULL_PIN
+	return 0U;
+#else
+	GPIO_PinState s = HAL_GPIO_ReadPin(BAT_FULL_PORT, BAT_FULL_PIN);
+#if POWER_BAT_FULL_PIN_ACTIVE_LOW
+	return (s == GPIO_PIN_RESET) ? 1U : 0U;
+#else
+	return (s == GPIO_PIN_SET) ? 1U : 0U;
+#endif
 #endif
 }
 
@@ -164,103 +206,150 @@ float BatCheck_8times()
 	return BatVoltage;
 }
 
-uint8_t PowerCalculate(void)
+/*
+ * 与原阶梯电压区间一致，拐点间线性插值，SOC 连续；再量化为 0.01%（厘百分）。
+ * 例如 3.98~4.06V 间由 80% 平滑过渡到 90%，不再整段钉死在 80%。
+ */
+static float PowerVoltageToSocPercent(float v)
 {
-	uint8_t power = 0U;
-	float voltage;
-	float raw;
+	const float v_full = BAT_FULL_VOLTAGE_V;
+	static const float kv[10] = {
+		3.45f, 3.68f, 3.74f, 3.77f, 3.79f,
+		3.82f, 3.87f, 3.92f, 3.98f, 4.06f
+	};
+	static const float sv[10] = {
+		5.f, 10.f, 20.f, 30.f, 40.f,
+		50.f, 60.f, 70.f, 80.f, 90.f
+	};
 
-	raw = BatCheck_8times();
+	if (v < kv[0]) {
+		return 0.f;
+	}
+	if (v >= v_full) {
+		return 100.f;
+	}
 	{
-		uint8_t chg = ChargeCheck();
-		uint8_t was_chg = s_was_charging;
-		s_was_charging = chg;
-
-		if (s_batvolt_lpf < 0.0f)
-		{
-			s_batvolt_lpf = raw;
-		}
-		else if (chg && !was_chg)
-		{
-			/* 刚插上电：与未充电同一套电压→电量表，先把滤波器拉到当前端压 */
-			s_batvolt_lpf = raw;
-		}
-		else if (chg)
-		{
-			s_batvolt_lpf = 0.88f * s_batvolt_lpf + 0.12f * raw;
-		}
-		else
-		{
-			s_batvolt_lpf = 0.78f * s_batvolt_lpf + 0.22f * raw;
+		int i;
+		for (i = 0; i < 9; i++) {
+			if (v < kv[i + 1]) {
+				float v0 = kv[i];
+				float v1 = kv[i + 1];
+				float s0 = sv[i];
+				float s1 = sv[i + 1];
+				float t = (v - v0) / (v1 - v0);
+				return s0 + t * (s1 - s0);
+			}
 		}
 	}
+	{
+		float v0 = kv[9];
+		float t = (v - v0) / (v_full - v0);
+		if (t < 0.f) {
+			t = 0.f;
+		} else if (t > 1.f) {
+			t = 1.f;
+		}
+		return sv[9] + t * (100.f - sv[9]);
+	}
+}
+
+static uint16_t PowerSocPercentToCenti(float p)
+{
+	if (p <= 0.f) {
+		return 0U;
+	}
+	if (p >= 100.f) {
+		return 10000U;
+	}
+	return (uint16_t)(p * 100.f + 0.5f);
+}
+
+uint16_t PowerCalculate(void)
+{
+	float raw;
+	uint8_t chg;
+	uint8_t was_chg;
+	float voltage;
+	uint16_t raw_cent;
+
+	raw = BatCheck_8times();
+	chg = ChargeCheck();
+	was_chg = s_was_charging;
+	s_was_charging = chg;
+
+	if (s_batvolt_lpf < 0.0f)
+	{
+		s_batvolt_lpf = raw;
+	}
+	else if (chg && !was_chg)
+	{
+		/* 刚插上电：与未充电同一套电压→电量表，先把滤波器拉到当前端压 */
+		s_batvolt_lpf = raw;
+	}
+	else if (chg)
+	{
+		s_batvolt_lpf = 0.88f * s_batvolt_lpf + 0.12f * raw;
+	}
+	else
+	{
+		s_batvolt_lpf = 0.78f * s_batvolt_lpf + 0.22f * raw;
+	}
+
 	voltage = s_batvolt_lpf;
 
-	if (BAT_CHARGE_IR_COMPENSATION_V > 0.0f && ChargeCheck())
+	if (BAT_CHARGE_IR_COMPENSATION_V > 0.0f && chg)
 	{
 		voltage -= BAT_CHARGE_IR_COMPENSATION_V;
 	}
 
-	if (voltage >= 4.2f)
-	{
-		power = 100U;
-	}
-	else if (voltage >= 4.06f && voltage < 4.2f)
-	{
-		power = 90U;
-	}
-	else if (voltage >= 3.98f && voltage < 4.06f)
-	{
-		power = 80U;
-	}
-	else if (voltage >= 3.92f && voltage < 3.98f)
-	{
-		power = 70U;
-	}
-	else if (voltage >= 3.87f && voltage < 3.92f)
-	{
-		power = 60U;
-	}
-	else if (voltage >= 3.82f && voltage < 3.87f)
-	{
-		power = 50U;
-	}
-	else if (voltage >= 3.79f && voltage < 3.82f)
-	{
-		power = 40U;
-	}
-	else if (voltage >= 3.77f && voltage < 3.79f)
-	{
-		power = 30U;
-	}
-	else if (voltage >= 3.74f && voltage < 3.77f)
-	{
-		power = 20U;
-	}
-	else if (voltage >= 3.68f && voltage < 3.74f)
-	{
-		power = 10U;
-	}
-	else if (voltage >= 3.45f && voltage < 3.68f)
-	{
-		power = 5U;
-	}
-	else
-	{
-		/* 原逻辑：低于 3.45V 未赋值，为未定义行为；显式归为 0% */
-		power = 0U;
-	}
+	raw_cent = PowerSocPercentToCenti(PowerVoltageToSocPercent(voltage));
 
-	/* 充电时：负载电流会在分压点上造成瞬时压降，换算 SOC 会误判下降 → 显示不低于上一拍 */
-	if (ChargeCheck())
 	{
-		if (s_soc_last_shown != 0xFFu && power < s_soc_last_shown)
+		uint8_t full = FullChargeCheck();
+		uint16_t power_cent;
+
+		if (full != 0U)
 		{
-			power = s_soc_last_shown;
+			raw_cent = 10000U;
+			power_cent = 10000U;
 		}
+		else if (chg != 0U)
+		{
+			/* 充电且未满：每调用最多 +1.00%（100 厘百分），向电压目标靠拢 */
+			if (s_soc_last_shown == 0xFFFFu)
+			{
+				power_cent = raw_cent;
+			}
+			else
+			{
+				uint16_t target = raw_cent;
+				uint32_t cap = (uint32_t)s_soc_last_shown + 100U;
+				if (cap > 10000U)
+				{
+					cap = 10000U;
+				}
+				if ((uint32_t)target > cap)
+				{
+					power_cent = (uint16_t)cap;
+				}
+				else if (target < s_soc_last_shown)
+				{
+					power_cent = s_soc_last_shown;
+				}
+				else
+				{
+					power_cent = target;
+				}
+			}
+		}
+		else
+		{
+			power_cent = raw_cent;
+		}
+
+		s_soc_last_shown = power_cent;
+		return power_cent;
 	}
-	s_soc_last_shown = power;
-	return power;
 }
 
 void Power_Init(void)

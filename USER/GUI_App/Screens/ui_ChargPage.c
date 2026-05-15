@@ -25,7 +25,7 @@ static void ChargPage_timer_cb(lv_timer_t * timer)
 {
     if(Page_Get_NowPage()->page_obj == &ui_ChargPage)
 		{
-			char value_strbuf[5];
+			char value_strbuf[16];
 
 			HW_DateTimeTypeDef DateTime;
       HWInterface.RealTimeClock.GetTimeDate(&DateTime);
@@ -44,15 +44,22 @@ static void ChargPage_timer_cb(lv_timer_t * timer)
 				lv_label_set_text(ui_ChargPagebHourLabel, value_strbuf);
 			}
 
-			ui_BatArcValue = HWInterface.Power.BatCalculate();
-			if(ui_BatArcValue>0 && ui_BatArcValue<=100)
 			{
-				lv_arc_set_value(ui_CharPageBatArc, ui_BatArcValue);
-				sprintf(value_strbuf, "%2d%%",ui_BatArcValue);
+				uint16_t c = HWInterface.Power.BatCalculate();
+				uint8_t pct;
+				if (c > 10000u) {
+					pct = 0u;
+				} else {
+					pct = (uint8_t)((c + 50U) / 100U);
+					if (pct > 100u) {
+						pct = 100u;
+					}
+				}
+				ui_BatArcValue = pct;
+				lv_arc_set_value(ui_CharPageBatArc, (int32_t)ui_BatArcValue);
+				sprintf(value_strbuf, "%u%%", (unsigned)ui_BatArcValue);
 				lv_label_set_text(ui_ChargPageBatNum, value_strbuf);
 			}
-			else
-			{ui_BatArcValue=0;}
 
 		}
 }
@@ -61,15 +68,18 @@ static void ChargPage_timer_cb(lv_timer_t * timer)
 ///////////////////// SCREEN init ////////////////////
 void ui_ChargPage_screen_init(void)
 {
-		char value_strbuf[5];
-    uint8_t bat_init = HWInterface.Power.power_remain;
-    if (bat_init == 0u || bat_init > 100u) {
+		char value_strbuf[16];
+    uint16_t bat_init = HWInterface.Power.power_remain;
+    if (bat_init > 10000u) {
       bat_init = HWInterface.Power.BatCalculate();
-      if (bat_init == 0u || bat_init > 100u) {
+      if (bat_init > 10000u) {
         bat_init = 0u;
       }
     }
-    ui_BatArcValue = bat_init;
+    ui_BatArcValue = (uint8_t)((bat_init + 50U) / 100U);
+    if (ui_BatArcValue > 100u) {
+      ui_BatArcValue = 0u;
+    }
 
     ui_ChargPage = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_ChargPage, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -81,7 +91,8 @@ void ui_ChargPage_screen_init(void)
     lv_obj_set_y(ui_CharPageBatArc, -70);
     lv_obj_set_align(ui_CharPageBatArc, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_CharPageBatArc, LV_OBJ_FLAG_CLICKABLE);      /// Flags
-    lv_arc_set_value(ui_CharPageBatArc, ui_BatArcValue);
+    lv_arc_set_range(ui_CharPageBatArc, 0, 100);
+    lv_arc_set_value(ui_CharPageBatArc, (int32_t)ui_BatArcValue);
     lv_arc_set_bg_angles(ui_CharPageBatArc, 270, 629);
     lv_obj_set_style_arc_width(ui_CharPageBatArc, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -113,7 +124,7 @@ void ui_ChargPage_screen_init(void)
     lv_obj_set_x(ui_ChargPageBatNum, -70);
     lv_obj_set_y(ui_ChargPageBatNum, -25);
     lv_obj_set_align(ui_ChargPageBatNum, LV_ALIGN_CENTER);
-		sprintf(value_strbuf, "%2d%%",ui_BatArcValue);
+		sprintf(value_strbuf, "%u%%", (unsigned)ui_BatArcValue);
     lv_label_set_text(ui_ChargPageBatNum, value_strbuf);
     lv_obj_set_style_text_color(ui_ChargPageBatNum, lv_color_hex(0x64C864), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_ChargPageBatNum, 255, LV_PART_MAIN | LV_STATE_DEFAULT);

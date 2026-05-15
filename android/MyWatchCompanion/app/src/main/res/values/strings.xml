@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">手表调试</string>
+    <string name="hint_log">接收日志…</string>
+    <string name="refresh_devices">刷新已配对</string>
+    <string name="connect">连接</string>
+    <string name="disconnect">断开</string>
+    <string name="send_ov">发 OV</string>
+    <string name="send_ov_send">发 OV+SEND</string>
+    <string name="send_ov_version">发 OV+VERSION</string>
+    <string name="clear">清空</string>
+    <string name="custom_send">发送自定义</string>
+</resources>

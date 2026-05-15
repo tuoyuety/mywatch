@@ -36,6 +36,35 @@
 #define BAT_CHARGE_IR_COMPENSATION_V (0.0f)
 #endif
 
+/*
+ * 未接「充满」专用脚时，用万用表在电池端测得的满电电压（经 BAT_VOLTAGE_TRIM_GAIN 校正后与 ADC 推算一致）。
+ * 插值段 90%~100% 的上限也使用该值。
+ */
+#ifndef BAT_FULL_VOLTAGE_V
+#define BAT_FULL_VOLTAGE_V (4.188f)
+#endif
+
+/*
+ * 若原理图把 TP4056 的 #STDBY（或驱动绿灯的 MCU 脚）接入，置 1 并改 BAT_FULL_PORT/PIN。
+ * 为 0 时 FullChargeCheck() 恒为假，仅依赖 BAT_FULL_VOLTAGE_V。
+ */
+#ifndef POWER_USE_BAT_FULL_PIN
+#define POWER_USE_BAT_FULL_PIN 0
+#endif
+
+#if POWER_USE_BAT_FULL_PIN
+#ifndef BAT_FULL_PORT
+#define BAT_FULL_PORT GPIOA
+#endif
+#ifndef BAT_FULL_PIN
+#define BAT_FULL_PIN GPIO_PIN_4
+#endif
+/* 常见 TP4056：#STDBY 开漏，充满时被拉低 → 读脚为低表示已充满 */
+#ifndef POWER_BAT_FULL_PIN_ACTIVE_LOW
+#define POWER_BAT_FULL_PIN_ACTIVE_LOW 1
+#endif
+#endif
+
 #define BAT_CHECK_PORT	GPIOA
 #define BAT_CHECK_PIN		GPIO_PIN_1
 
@@ -51,7 +80,9 @@ void Power_DisEnable(void);
 float BatCheck(void);
 float BatCheck_8times(void);
 uint8_t ChargeCheck(void);
-uint8_t PowerCalculate(void);
+uint8_t FullChargeCheck(void);
+/* 返回 0~10000：厘百分（0.01%），如 8034 表示 80.34% */
+uint16_t PowerCalculate(void);
 void Power_Init(void);
 void Power_UpdateAdcVddaCalibration(void);
 

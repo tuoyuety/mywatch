@@ -154,10 +154,10 @@ void HW_Power_Shutdown(void)
 
     @param	NULL
 
-	@return bat power remain
+	@return 电量厘百分：0~10000 表示 0.00%~100.00%（如 8047≈80.47%）
 */
 /**************************************************************************/
-uint8_t HW_Power_BatCalculate(void)
+uint16_t HW_Power_BatCalculate(void)
 {
 	#if HW_USE_BAT
 		return PowerCalculate();

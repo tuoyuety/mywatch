@@ -53,8 +53,8 @@ void HardwareInitTask(void *argument)
     HWInterface.Power.Init();
     /* 先读一次电量，避免首页仍用 SquareLine 占位 70% 直到传感器任务才改 */
     {
-      uint8_t pr = HWInterface.Power.BatCalculate();
-      if (pr > 0u && pr <= 100u) {
+      uint16_t pr = HWInterface.Power.BatCalculate();
+      if (pr <= 10000u) {
         HWInterface.Power.power_remain = pr;
       } else {
         HWInterface.Power.power_remain = 0u;

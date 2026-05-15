@@ -110,12 +110,12 @@ void SensorDataUpdateTask(void *argument)
 		uint8_t HomeUpdataStr;
 		if(osMessageQueueGet(HomeUpdata_MessageQueue, &HomeUpdataStr, NULL, 0)==osOK)
 		{
-			//bat
+			//bat（0~10000 = 0.00%~100.00%）
 			HWInterface.Power.power_remain = HWInterface.Power.BatCalculate();
-			if(HWInterface.Power.power_remain>0 && HWInterface.Power.power_remain<=100)
-			{}
-			else
-			{HWInterface.Power.power_remain = 0;}
+			if (HWInterface.Power.power_remain > 10000u)
+			{
+				HWInterface.Power.power_remain = 0u;
+			}
 
 			//steps
 			if(!(HWInterface.IMU.ConnectionError))

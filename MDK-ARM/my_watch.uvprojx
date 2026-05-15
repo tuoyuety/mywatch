@@ -1588,11 +1588,6 @@
               <FilePath>..\USER\GUI_App\Screens\ui_SetPage.c</FilePath>
             </File>
             <File>
-              <FileName>ui_SPO2Page.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\GUI_App\Screens\ui_SPO2Page.c</FilePath>
-            </File>
-            <File>
               <FileName>ui_TimerPage.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\GUI_App\Screens\ui_TimerPage.c</FilePath>
